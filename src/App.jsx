@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {
   ArrowUpRight,
+  BadgeCheck,
   BriefcaseBusiness,
   Check,
   ChevronDown,
@@ -8,13 +9,17 @@ import {
   Fingerprint,
   Gavel,
   Home,
+  Headphones,
+  HelpCircle,
   IdCard,
   Mail,
   Menu,
   MessageCircle,
   Search,
   ShieldCheck,
+  Scale,
   Sparkles,
+  FileWarning,
   Building2,
   X,
 } from 'lucide-react'
@@ -50,11 +55,16 @@ function App() {
       <div className={`drawer-backdrop ${menuOpen ? 'is-visible' : ''}`} onClick={() => setMenuOpen(false)}></div>
       <aside className={`nav-drawer ${menuOpen ? 'is-open' : ''}`} aria-label="Site navigation">
         <div className="drawer-header"><span>Navigation</span><button className="icon-button" type="button" aria-label="Close navigation" onClick={() => setMenuOpen(false)}><X size={23} /></button></div>
-        <a href="#top" onClick={() => setMenuOpen(false)}><ShieldCheck size={19} /> Home <ArrowUpRight size={16} /></a>
+        <a href="#top" onClick={() => setMenuOpen(false)}><Home size={19} /> Home <ArrowUpRight size={16} /></a>
         <a href="#search" onClick={() => setMenuOpen(false)}><Search size={19} /> Record search <ArrowUpRight size={16} /></a>
         <a href="#how-it-works" onClick={() => setMenuOpen(false)}><FileCheck2 size={19} /> How it works <ArrowUpRight size={16} /></a>
+        <a href="#what-we-check" onClick={() => setMenuOpen(false)}><BadgeCheck size={19} /> What we check <ArrowUpRight size={16} /></a>
         <a href="#services" onClick={() => setMenuOpen(false)}><BriefcaseBusiness size={19} /> Services <ArrowUpRight size={16} /></a>
-        <a href="#support" onClick={() => setMenuOpen(false)}><MessageCircle size={19} /> Contact support <ArrowUpRight size={16} /></a>
+        <a href="#legal-team" onClick={() => setMenuOpen(false)}><Scale size={19} /> Legal team <ArrowUpRight size={16} /></a>
+        <a href="#complaint" onClick={() => setMenuOpen(false)}><FileWarning size={19} /> Register complaint <ArrowUpRight size={16} /></a>
+        <a href="#inquiry" onClick={() => setMenuOpen(false)}><HelpCircle size={19} /> Enquire <ArrowUpRight size={16} /></a>
+        <a href="#faq" onClick={() => setMenuOpen(false)}><Headphones size={19} /> FAQ &amp; help <ArrowUpRight size={16} /></a>
+        <a href="#support" onClick={() => setMenuOpen(false)}><MessageCircle size={19} /> Contact <ArrowUpRight size={16} /></a>
       </aside>
 
       <section className="hero shell" id="top">
