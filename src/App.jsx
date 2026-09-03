@@ -36,6 +36,10 @@ function App() {
   const [showPassword, setShowPassword] = useState(false)
   const [authMessage, setAuthMessage] = useState('')
 
+  if (window.location.hash === '#account' || window.location.hash === '#create-account') {
+    return <AuthPage initialMode={window.location.hash === '#create-account' ? 'create' : 'signin'} />
+  }
+
   const handleSearch = (event) => {
     event.preventDefault()
     setSearched(Boolean(query.trim()))
@@ -64,10 +68,7 @@ function App() {
           <a href="#support">Support</a>
           <a className="nav-cta" href="#search">Start a check <ArrowUpRight size={16} /></a>
         </div>
-        <a className="account-button" href="#account" aria-label="Open account sign in" onClick={() => { setAuthMode('signin'); setAuthMessage('') }}><UserRound size={19} /></a>
-        <button className="icon-button menu-button" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <X size={21} /> : <Menu size={21} />}
-        </button>
+        <div className="nav-tools"><a className="account-button" href="#account" aria-label="Open account sign in" onClick={(event) => { event.preventDefault(); window.location.href = '#account' }}><UserRound size={19} /></a><button className="icon-button menu-button" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={21} /> : <Menu size={21} />}</button></div>
       </nav>
       <div className={`drawer-backdrop ${menuOpen ? 'is-visible' : ''}`} onClick={() => setMenuOpen(false)}></div>
       <aside className={`nav-drawer ${menuOpen ? 'is-open' : ''}`} aria-label="Site navigation">
@@ -83,23 +84,6 @@ function App() {
         <a href="#faq" onClick={() => setMenuOpen(false)}><Headphones size={19} /> FAQ &amp; help <ArrowUpRight size={16} /></a>
         <a href="#support" onClick={() => setMenuOpen(false)}><MessageCircle size={19} /> Contact <ArrowUpRight size={16} /></a>
       </aside>
-
-      <section className="auth-section shell" id="account">
-        <div className="auth-intro"><div className="eyebrow"><span className="pulse"></span> Secure member access</div><h2>Your verification<br /><em>workspace.</em></h2><p>Create an account to manage checks, or sign in to continue where you left off.</p><div className="auth-points"><span><ShieldCheck size={17} /> Private by design</span><span><Check size={17} /> Verified workflows</span></div></div>
-        <div className="auth-card">
-          <div className="auth-tabs"><button className={authMode === 'signin' ? 'active' : ''} type="button" onClick={() => { setAuthMode('signin'); setAuthMessage(''); window.location.hash = 'account' }}>Sign in</button><button className={authMode === 'create' ? 'active' : ''} type="button" onClick={() => { setAuthMode('create'); setAuthMessage(''); window.location.hash = 'create-account' }}>Create account</button></div>
-          <form onSubmit={handleAuthSubmit} noValidate={false}>
-            {authMode === 'create' && <label>Full name<input name="fullName" type="text" placeholder="Your full name" required /></label>}
-            <label>Email or phone number<input name="identifier" type="text" placeholder="you@example.com or 03001234567" required /></label>
-            {authMode === 'create' && <label>WhatsApp number<input name="whatsapp" type="tel" placeholder="03001234567" required /></label>}
-            <label className="password-field">Password<div><input name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" minLength="3" required /><button type="button" aria-label={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff size={17} /> : <Eye size={17} />}</button></div></label>
-            {authMode === 'signin' && <label className="remember"><input type="checkbox" /> Remember me for 7 days</label>}
-            {authMode === 'create' && <p className="terms-note">By creating an account, you agree to our Terms of Use. We will use your WhatsApp number for verification.</p>}
-            <button className="auth-submit" type="submit">{authMode === 'signin' ? 'Sign in' : 'Create account'} <ArrowUpRight size={17} /></button>
-            {authMessage && <div className="auth-message"><Check size={16} /> {authMessage}</div>}
-          </form>
-        </div>
-      </section>
 
       <section className="hero shell" id="top">
         <div className="hero-copy">
@@ -150,6 +134,50 @@ function App() {
         <div className="footer-bottom"><span>© 2026 Employee Verifier. All rights reserved.</span><span>Verification • Records • Legal advisory</span></div>
       </footer>
       <a className="whatsapp-button" href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="Contact Employee Verifier on WhatsApp"><MessageCircle size={25} /></a>
+    </main>
+  )
+}
+
+function AuthPage({ initialMode }) {
+  const [authMode, setAuthMode] = useState(initialMode)
+  const [showPassword, setShowPassword] = useState(false)
+  const [authMessage, setAuthMessage] = useState('')
+
+  const handleAuthSubmit = (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    if (!form.checkValidity()) {
+      form.reportValidity()
+      return
+    }
+    setAuthMessage(authMode === 'signin' ? 'Sign in details are ready to submit.' : 'Your account details are ready to submit.')
+  }
+
+  const switchMode = (mode) => {
+    setAuthMode(mode)
+    setAuthMessage('')
+    window.location.hash = mode === 'create' ? 'create-account' : 'account'
+  }
+
+  return (
+    <main className="auth-page">
+      <header className="auth-nav"><a className="brand" href="/#top"><span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><i></i></span><span>EMPLOYEE<span>VERIFIER</span></span></a><a className="back-link" href="/#top"><ArrowUpRight size={16} /> Back to website</a></header>
+      <section className="auth-section shell">
+        <div className="auth-intro"><div className="eyebrow"><span className="pulse"></span> Secure member access</div><h2>{authMode === 'signin' ? <>Welcome<br /><em>back.</em></> : <>Start your<br /><em>verification.</em></>}</h2><p>{authMode === 'signin' ? 'Sign in to access your Employee Verifier workspace.' : 'Create an account to manage checks and verification requests.'}</p><div className="auth-points"><span><ShieldCheck size={17} /> Private by design</span><span><Check size={17} /> Verified workflows</span></div></div>
+        <div className="auth-card">
+          <div className="auth-tabs"><button className={authMode === 'signin' ? 'active' : ''} type="button" onClick={() => switchMode('signin')}>Sign in</button><button className={authMode === 'create' ? 'active' : ''} type="button" onClick={() => switchMode('create')}>Create account</button></div>
+          <form onSubmit={handleAuthSubmit}>
+            {authMode === 'create' && <label>Full name<input name="fullName" type="text" placeholder="Your full name" required /></label>}
+            <label>Email or phone number<input name="identifier" type="text" placeholder="you@example.com or 03001234567" required /></label>
+            {authMode === 'create' && <label>WhatsApp number<input name="whatsapp" type="tel" placeholder="03001234567" required /></label>}
+            <label className="password-field">Password<div><input name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" minLength="3" required /><button type="button" aria-label={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff size={17} /> : <Eye size={17} />}</button></div></label>
+            {authMode === 'signin' && <label className="remember"><input type="checkbox" /> Remember me for 7 days</label>}
+            {authMode === 'create' && <p className="terms-note">By creating an account, you agree to our Terms of Use. We will use your WhatsApp number for verification.</p>}
+            <button className="auth-submit" type="submit">{authMode === 'signin' ? 'Sign in' : 'Create account'} <ArrowUpRight size={17} /></button>
+            {authMessage && <div className="auth-message"><Check size={16} /> {authMessage}</div>}
+          </form>
+        </div>
+      </section>
     </main>
   )
 }
