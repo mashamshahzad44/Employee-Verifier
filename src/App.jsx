@@ -60,7 +60,7 @@ function App() {
     <main>
       <nav className="nav shell">
         <a className="brand" href="#top" aria-label="Employee Verifier home">
-          <BrandMark size={22} />
+          <span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><i></i></span>
           <span>EMPLOYEE<span>VERIFIER</span></span>
         </a>
         <div className={`nav-links ${menuOpen ? 'is-open' : ''}`}>
@@ -129,7 +129,7 @@ function App() {
 
       <section className="closing shell" id="support"><div><div className="eyebrow"><span className="pulse"></span> Here when the answer matters</div><h2>Good decisions<br /><em>feel different.</em></h2></div><a className="button button-lime" href="mailto:info@employeeverifier.com">Talk to our team <ArrowUpRight size={18} /></a></section>
       <footer className="footer shell">
-        <div className="footer-brand"><a className="brand" href="#top"><BrandMark size={19} /><span>EMPLOYEE<span>VERIFIER</span></span></a><p>Identity and employment verification,<br />public records, and legal support in one place.</p></div>
+        <div className="footer-brand"><a className="brand" href="#top"><span className="brand-mark"><ShieldCheck size={20} /><i></i></span><span>EMPLOYEE<span>VERIFIER</span></span></a><p>Identity and employment verification,<br />public records, and legal support in one place.</p></div>
         <div className="footer-contact"><strong>Contact support</strong><a href="https://wa.me/447777793786" target="_blank" rel="noreferrer"><MessageCircle size={16} /> +44 7777 793786</a><a href="mailto:info@employeeverifier.com"><Mail size={16} /> info@employeeverifier.com</a></div>
         <div className="footer-explore"><strong>Explore</strong><a href="#how-it-works">How it works</a><a href="#services">Services</a><a href="#support">Support</a></div>
         <div className="footer-bottom"><span>© 2026 Employee Verifier. All rights reserved.</span><span>Verification • Records • Legal advisory</span></div>
@@ -137,10 +137,6 @@ function App() {
       <a className="whatsapp-button" href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="Contact Employee Verifier on WhatsApp"><MessageCircle size={25} /></a>
     </main>
   )
-}
-
-function BrandMark({ size = 22 }) {
-  return <span className="brand-mark" aria-hidden="true"><svg width={size} height={size} viewBox="0 0 24 24" fill="none"><path d="M12 2.8c-4.6 1.5-7 3.2-7 3.2v5.8c0 4.8 2.7 8.2 7 10.2 4.3-2 7-5.4 7-10.2V6s-2.4-1.7-7-3.2Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"/><path d="M8 11.5c1.2-1.5 2.3-2.2 3.5-2.2 1.1 0 2.1.5 3.1 1.5M8.5 14.5c1-1 2-1.5 3-1.5 1.1 0 2.1.4 3 1.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="m13.6 16.6 1.4 1.4 3-3.4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg><i></i></span>
 }
 
 function AuthPage({ initialMode }) {
@@ -166,7 +162,7 @@ function AuthPage({ initialMode }) {
 
   return (
     <main className="auth-page">
-      <header className="auth-nav"><a className="brand" href="/"><BrandMark size={22} /><span>EMPLOYEE<span>VERIFIER</span></span></a><a className="back-link" href="/"><ArrowLeft size={19} /> Back to website</a></header>
+      <header className="auth-nav"><a className="brand" href="/"><span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><i></i></span><span>EMPLOYEE<span>VERIFIER</span></span></a><a className="back-link" href="/"><ArrowLeft size={19} /> Back to website</a></header>
       <section className={`auth-section shell ${authMode === 'signin' ? 'signin-layout' : 'register-layout'}`}>
         <div className="auth-intro"><div className="eyebrow"><span className="pulse"></span> Secure member access</div><h2>{authMode === 'signin' ? <>Welcome<br /><em>back.</em></> : <>Start your<br /><em>verification.</em></>}</h2><p>{authMode === 'signin' ? 'Sign in to access your Employee Verifier workspace.' : 'Create an account to manage checks and verification requests.'}</p><div className="auth-points"><span><ShieldCheck size={17} /> Private by design</span><span><Check size={17} /> Verified workflows</span></div></div>
         <div className="auth-card">
