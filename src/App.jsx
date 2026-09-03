@@ -36,8 +36,8 @@ function App() {
   const [showPassword, setShowPassword] = useState(false)
   const [authMessage, setAuthMessage] = useState('')
 
-  if (window.location.hash === '#account' || window.location.hash === '#create-account') {
-    return <AuthPage initialMode={window.location.hash === '#create-account' ? 'create' : 'signin'} />
+  if (window.location.pathname === '/auth/login' || window.location.pathname === '/auth/register') {
+    return <AuthPage initialMode={window.location.pathname === '/auth/register' ? 'create' : 'signin'} />
   }
 
   const handleSearch = (event) => {
@@ -68,7 +68,7 @@ function App() {
           <a href="#support">Support</a>
           <a className="nav-cta" href="#search">Start a check <ArrowUpRight size={16} /></a>
         </div>
-        <div className="nav-tools"><a className="account-button" href="#account" aria-label="Open account sign in" onClick={(event) => { event.preventDefault(); window.location.href = '#account' }}><UserRound size={19} /></a><button className="icon-button menu-button" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={21} /> : <Menu size={21} />}</button></div>
+        <div className="nav-tools"><a className="account-button" href="/auth/login" aria-label="Open account sign in"><UserRound size={19} /></a><button className="icon-button menu-button" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={21} /> : <Menu size={21} />}</button></div>
       </nav>
       <div className={`drawer-backdrop ${menuOpen ? 'is-visible' : ''}`} onClick={() => setMenuOpen(false)}></div>
       <aside className={`nav-drawer ${menuOpen ? 'is-open' : ''}`} aria-label="Site navigation">
@@ -156,12 +156,12 @@ function AuthPage({ initialMode }) {
   const switchMode = (mode) => {
     setAuthMode(mode)
     setAuthMessage('')
-    window.location.hash = mode === 'create' ? 'create-account' : 'account'
+    window.location.assign(mode === 'create' ? '/auth/register' : '/auth/login')
   }
 
   return (
     <main className="auth-page">
-      <header className="auth-nav"><a className="brand" href="/#top"><span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><i></i></span><span>EMPLOYEE<span>VERIFIER</span></span></a><a className="back-link" href="/#top"><ArrowUpRight size={16} /> Back to website</a></header>
+      <header className="auth-nav"><a className="brand" href="/"><span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><i></i></span><span>EMPLOYEE<span>VERIFIER</span></span></a><a className="back-link" href="/"><ArrowUpRight size={16} /> Back to website</a></header>
       <section className="auth-section shell">
         <div className="auth-intro"><div className="eyebrow"><span className="pulse"></span> Secure member access</div><h2>{authMode === 'signin' ? <>Welcome<br /><em>back.</em></> : <>Start your<br /><em>verification.</em></>}</h2><p>{authMode === 'signin' ? 'Sign in to access your Employee Verifier workspace.' : 'Create an account to manage checks and verification requests.'}</p><div className="auth-points"><span><ShieldCheck size={17} /> Private by design</span><span><Check size={17} /> Verified workflows</span></div></div>
         <div className="auth-card">
