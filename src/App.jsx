@@ -139,10 +139,6 @@ function App() {
   )
 }
 
-function BrandMark({ size = 22 }) {
-  return <span className="brand-mark" aria-hidden="true"><svg width={size} height={size} viewBox="0 0 24 24" fill="none"><path d="M12 2.8c-4.6 1.5-7 3.2-7 3.2v5.8c0 4.8 2.7 8.2 7 10.2 4.3-2 7-5.4 7-10.2V6s-2.4-1.7-7-3.2Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"/><path d="M8 11.5c1.2-1.5 2.3-2.2 3.5-2.2 1.1 0 2.1.5 3.1 1.5M8.5 14.5c1-1 2-1.5 3-1.5 1.1 0 2.1.4 3 1.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="m13.6 16.6 1.4 1.4 3-3.4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg><i></i></span>
-}
-
 function AuthPage({ initialMode }) {
   const [authMode, setAuthMode] = useState(initialMode)
   const [showPassword, setShowPassword] = useState(false)
@@ -186,6 +182,9 @@ function AuthPage({ initialMode }) {
     </main>
   )
 
+  function BrandMark({ size = 22 }) {
+    return <span className="brand-mark" aria-hidden="true"><svg width={size} height={size} viewBox="0 0 24 24" fill="none"><path d="M12 2.8c-4.6 1.5-7 3.2-7 3.2v5.8c0 4.8 2.7 8.2 7 10.2 4.3-2 7-5.4 7-10.2V6s-2.4-1.7-7-3.2Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"/><path d="M8 11.5c1.2-1.5 2.3-2.2 3.5-2.2 1.1 0 2.1.5 3.1 1.5M8.5 14.5c1-1 2-1.5 3-1.5 1.1 0 2.1.4 3 1.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="m13.6 16.6 1.4 1.4 3-3.4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg><i></i></span>
+  }
 }
 
 export default App
