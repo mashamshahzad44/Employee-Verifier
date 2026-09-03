@@ -53,6 +53,16 @@ h1, h2, h3, p { margin: 0; }.hero h1 { font: 600 clamp(55px, 7vw, 96px)/.94 'Pla
 .service-list strong { color: #f7fbff; font: 600 21px 'Playfair Display', serif; }.service-list small { color: #9db8d2; font-size: 14px; line-height: 1.5; }.service-list a > svg:last-child { color: #09d3aa; }
 @media (max-width: 760px) { .services { padding-top: 70px; padding-bottom: 70px; }.service-list a { grid-template-columns: 38px 34px 1fr 20px; gap: 10px; min-height: 94px; padding: 15px 16px; }.service-list strong { font-size: 17px; }.service-list small { grid-column: 3; grid-row: 2; font-size: 12px; }.service-list a:hover { padding-left: 20px; } }
 
+/* Full-width outer sections with centered content padding. */
+html, body, #root, main { width: 100%; max-width: 100%; margin: 0; overflow-x: hidden; }
+.shell { width: 100%; max-width: none; padding-left: max(24px, calc((100% - 1280px) / 2)); padding-right: max(24px, calc((100% - 1280px) / 2)); }
+.nav, .hero, .search-panel, .steps, .services, .closing { width: 100%; }
+.hero-visual img, .hero-visual svg, .signal-card { max-width: 100%; height: auto; }
+.step-grid { gap: 24px; background: transparent; }
+.step-grid article { padding: 32px; border-radius: 8px; border: 1px solid rgba(189,222,244,.22); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+@media (min-width: 640px) and (max-width: 1100px) { .hero h1 { font-size: 48px; }.step-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.step-grid article:last-child { grid-column: 1 / -1; } }
+@media (max-width: 639px) { .hero { grid-template-columns: 1fr; }.hero h1 { font-size: clamp(36px, 10vw, 42px); }.step-grid { grid-template-columns: 1fr; gap: 16px; }.step-grid article { padding: 32px; } }
+
 /* Identity-check app theme */
 main { color: #f7fbff; background: #071b42; }
 .nav { border-bottom-color: rgba(189,222,244,.2); }
