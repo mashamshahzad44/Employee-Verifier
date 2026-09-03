@@ -33,7 +33,7 @@ function App() {
     <main>
       <nav className="nav shell">
         <a className="brand" href="#top" aria-label="Employee Verifier home">
-          <span className="brand-mark"><Fingerprint size={24} strokeWidth={2.5} /></span>
+          <span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><i></i></span>
           <span>EMPLOYEE<span>VERIFIER</span></span>
         </a>
         <div className={`nav-links ${menuOpen ? 'is-open' : ''}`}>
@@ -90,7 +90,7 @@ function App() {
 
       <section className="closing shell" id="support"><div><div className="eyebrow"><span className="pulse"></span> Here when the answer matters</div><h2>Good decisions<br /><em>feel different.</em></h2></div><a className="button button-lime" href="mailto:info@employeeverifier.com">Talk to our team <ArrowUpRight size={18} /></a></section>
       <footer className="footer shell">
-        <div className="footer-brand"><a className="brand" href="#top"><span className="brand-mark"><Fingerprint size={20} /></span><span>EMPLOYEE<span>VERIFIER</span></span></a><p>Identity and employment verification,<br />public records, and legal support in one place.</p></div>
+        <div className="footer-brand"><a className="brand" href="#top"><span className="brand-mark"><ShieldCheck size={20} /><i></i></span><span>EMPLOYEE<span>VERIFIER</span></span></a><p>Identity and employment verification,<br />public records, and legal support in one place.</p></div>
         <div className="footer-contact"><strong>Contact support</strong><a href="https://wa.me/447777793786" target="_blank" rel="noreferrer"><MessageCircle size={16} /> +44 7777 793786</a><a href="mailto:info@employeeverifier.com"><Mail size={16} /> info@employeeverifier.com</a></div>
         <div className="footer-explore"><strong>Explore</strong><a href="#how-it-works">How it works</a><a href="#services">Services</a><a href="#support">Support</a></div>
         <div className="footer-bottom"><span>© 2026 Employee Verifier. All rights reserved.</span><span>Verification • Records • Legal advisory</span></div>
