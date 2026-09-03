@@ -7,6 +7,7 @@ import {
   Fingerprint,
   Gavel,
   Menu,
+  MessageCircle,
   Search,
   ShieldCheck,
   Sparkles,
@@ -85,6 +86,7 @@ function App() {
 
       <section className="closing shell" id="support"><div><div className="eyebrow"><span className="pulse"></span> Here when the answer matters</div><h2>Good decisions<br /><em>feel different.</em></h2></div><a className="button button-lime" href="mailto:info@employeeverifier.com">Talk to our team <ArrowUpRight size={18} /></a></section>
       <footer className="footer shell"><a className="brand" href="#top"><span className="brand-mark"><Fingerprint size={20} /></span><span>employee<span>verifier</span></span></a><span>Verification • Records • Legal advisory</span><span>© 2026 Employee Verifier</span></footer>
+      <a className="whatsapp-button" href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="Contact Employee Verifier on WhatsApp"><MessageCircle size={25} /></a>
     </main>
   )
 }
