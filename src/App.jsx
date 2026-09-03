@@ -6,6 +6,7 @@ import {
   FileCheck2,
   Fingerprint,
   Gavel,
+  Mail,
   Menu,
   MessageCircle,
   Search,
@@ -85,7 +86,12 @@ function App() {
       <section className="services shell" id="services"><div className="section-kicker">03 / Built for real life</div><div className="services-head"><h2>Check the details<br /><em>that matter.</em></h2><Sparkles size={32} /></div><div className="service-list"><a href="#search"><span>01</span><strong>Employee verification</strong><small>Background and employment records</small><ArrowUpRight /></a><a href="#search"><span>02</span><strong>Domestic staff checks</strong><small>Confidence for the people closest to home</small><ArrowUpRight /></a><a href="#search"><span>03</span><strong>Company reviews</strong><small>Workplace conduct and ratings</small><ArrowUpRight /></a></div></section>
 
       <section className="closing shell" id="support"><div><div className="eyebrow"><span className="pulse"></span> Here when the answer matters</div><h2>Good decisions<br /><em>feel different.</em></h2></div><a className="button button-lime" href="mailto:info@employeeverifier.com">Talk to our team <ArrowUpRight size={18} /></a></section>
-      <footer className="footer shell"><a className="brand" href="#top"><span className="brand-mark"><Fingerprint size={20} /></span><span>employee<span>verifier</span></span></a><span>Verification • Records • Legal advisory</span><span>© 2026 Employee Verifier</span></footer>
+      <footer className="footer shell">
+        <div className="footer-brand"><a className="brand" href="#top"><span className="brand-mark"><Fingerprint size={20} /></span><span>employee<span>verifier</span></span></a><p>Identity and employment verification,<br />public records, and legal support in one place.</p></div>
+        <div className="footer-contact"><strong>Contact support</strong><a href="https://wa.me/447777793786" target="_blank" rel="noreferrer"><MessageCircle size={16} /> +44 7777 793786</a><a href="mailto:info@employeeverifier.com"><Mail size={16} /> info@employeeverifier.com</a></div>
+        <div className="footer-explore"><strong>Explore</strong><a href="#how-it-works">How it works</a><a href="#services">Services</a><a href="#support">Support</a></div>
+        <div className="footer-bottom"><span>© 2026 Employee Verifier. All rights reserved.</span><span>Verification • Records • Legal advisory</span></div>
+      </footer>
       <a className="whatsapp-button" href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="Contact Employee Verifier on WhatsApp"><MessageCircle size={25} /></a>
     </main>
   )
