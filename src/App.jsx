@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {
   ArrowUpRight,
+  BriefcaseBusiness,
   Check,
   ChevronDown,
   FileCheck2,
@@ -42,10 +43,19 @@ function App() {
           <a href="#support">Support</a>
           <a className="nav-cta" href="#search">Start a check <ArrowUpRight size={16} /></a>
         </div>
-        <button className="icon-button menu-button" type="button" aria-label="Toggle menu" onClick={() => setMenuOpen(!menuOpen)}>
+        <button className="icon-button menu-button" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={21} /> : <Menu size={21} />}
         </button>
       </nav>
+      <div className={`drawer-backdrop ${menuOpen ? 'is-visible' : ''}`} onClick={() => setMenuOpen(false)}></div>
+      <aside className={`nav-drawer ${menuOpen ? 'is-open' : ''}`} aria-label="Site navigation">
+        <div className="drawer-header"><span>Navigation</span><button className="icon-button" type="button" aria-label="Close navigation" onClick={() => setMenuOpen(false)}><X size={23} /></button></div>
+        <a href="#top" onClick={() => setMenuOpen(false)}><ShieldCheck size={19} /> Home <ArrowUpRight size={16} /></a>
+        <a href="#search" onClick={() => setMenuOpen(false)}><Search size={19} /> Record search <ArrowUpRight size={16} /></a>
+        <a href="#how-it-works" onClick={() => setMenuOpen(false)}><FileCheck2 size={19} /> How it works <ArrowUpRight size={16} /></a>
+        <a href="#services" onClick={() => setMenuOpen(false)}><BriefcaseBusiness size={19} /> Services <ArrowUpRight size={16} /></a>
+        <a href="#support" onClick={() => setMenuOpen(false)}><MessageCircle size={19} /> Contact support <ArrowUpRight size={16} /></a>
+      </aside>
 
       <section className="hero shell" id="top">
         <div className="hero-copy">
