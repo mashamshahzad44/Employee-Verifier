@@ -32,7 +32,7 @@ function App() {
   const [query, setQuery] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
   const [searched, setSearched] = useState(false)
-  const [authMode, setAuthMode] = useState('signin')
+  const [authMode, setAuthMode] = useState(() => window.location.hash === '#create-account' ? 'create' : 'signin')
   const [showPassword, setShowPassword] = useState(false)
   const [authMessage, setAuthMessage] = useState('')
 
@@ -64,7 +64,7 @@ function App() {
           <a href="#support">Support</a>
           <a className="nav-cta" href="#search">Start a check <ArrowUpRight size={16} /></a>
         </div>
-        <a className="account-button" href="#account" aria-label="Open account sign in"><UserRound size={19} /></a>
+        <a className="account-button" href="#account" aria-label="Open account sign in" onClick={() => { setAuthMode('signin'); setAuthMessage('') }}><UserRound size={19} /></a>
         <button className="icon-button menu-button" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={21} /> : <Menu size={21} />}
         </button>
@@ -87,7 +87,7 @@ function App() {
       <section className="auth-section shell" id="account">
         <div className="auth-intro"><div className="eyebrow"><span className="pulse"></span> Secure member access</div><h2>Your verification<br /><em>workspace.</em></h2><p>Create an account to manage checks, or sign in to continue where you left off.</p><div className="auth-points"><span><ShieldCheck size={17} /> Private by design</span><span><Check size={17} /> Verified workflows</span></div></div>
         <div className="auth-card">
-          <div className="auth-tabs"><button className={authMode === 'signin' ? 'active' : ''} type="button" onClick={() => { setAuthMode('signin'); setAuthMessage('') }}>Sign in</button><button className={authMode === 'create' ? 'active' : ''} type="button" onClick={() => { setAuthMode('create'); setAuthMessage('') }}>Create account</button></div>
+          <div className="auth-tabs"><button className={authMode === 'signin' ? 'active' : ''} type="button" onClick={() => { setAuthMode('signin'); setAuthMessage(''); window.location.hash = 'account' }}>Sign in</button><button className={authMode === 'create' ? 'active' : ''} type="button" onClick={() => { setAuthMode('create'); setAuthMessage(''); window.location.hash = 'create-account' }}>Create account</button></div>
           <form onSubmit={handleAuthSubmit} noValidate={false}>
             {authMode === 'create' && <label>Full name<input name="fullName" type="text" placeholder="Your full name" required /></label>}
             <label>Email or phone number<input name="identifier" type="text" placeholder="you@example.com or 03001234567" required /></label>
