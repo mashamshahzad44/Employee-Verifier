@@ -60,7 +60,7 @@ function App() {
             <div className="signal-top"><span>VERIFICATION SIGNAL</span><span className="live-dot">LIVE</span></div>
             <div className="signal-score"><strong>94</strong><span>/ 100<br /><small>TRUST INDEX</small></span></div>
             <div className="signal-line"><span style={{ width: '94%' }}></span></div>
-            <div className="signal-meta"><span><Check size={14} /> Identity matched</span><span>Updated now</span></div>
+            <div className="signal-meta"><span className="verified-seal"><Check size={14} /> Identity matched</span><span>Updated now</span></div>
           </div>
           <div className="floating-tag tag-one"><ShieldCheck size={17} /> Verified record</div>
           <div className="floating-tag tag-two"><span>+1,240</span> checks this month</div>
