@@ -20,6 +20,9 @@ import {
   Scale,
   Sparkles,
   FileWarning,
+  UserRound,
+  Eye,
+  EyeOff,
   Building2,
   X,
 } from 'lucide-react'
@@ -29,10 +32,23 @@ function App() {
   const [query, setQuery] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
   const [searched, setSearched] = useState(false)
+  const [authMode, setAuthMode] = useState('signin')
+  const [showPassword, setShowPassword] = useState(false)
+  const [authMessage, setAuthMessage] = useState('')
 
   const handleSearch = (event) => {
     event.preventDefault()
     setSearched(Boolean(query.trim()))
+  }
+
+  const handleAuthSubmit = (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    if (!form.checkValidity()) {
+      form.reportValidity()
+      return
+    }
+    setAuthMessage(authMode === 'signin' ? 'Sign in details are ready to submit.' : 'Your account details are ready to submit.')
   }
 
   return (
@@ -48,6 +64,7 @@ function App() {
           <a href="#support">Support</a>
           <a className="nav-cta" href="#search">Start a check <ArrowUpRight size={16} /></a>
         </div>
+        <a className="account-button" href="#account" aria-label="Open account sign in"><UserRound size={19} /></a>
         <button className="icon-button menu-button" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={21} /> : <Menu size={21} />}
         </button>
@@ -66,6 +83,23 @@ function App() {
         <a href="#faq" onClick={() => setMenuOpen(false)}><Headphones size={19} /> FAQ &amp; help <ArrowUpRight size={16} /></a>
         <a href="#support" onClick={() => setMenuOpen(false)}><MessageCircle size={19} /> Contact <ArrowUpRight size={16} /></a>
       </aside>
+
+      <section className="auth-section shell" id="account">
+        <div className="auth-intro"><div className="eyebrow"><span className="pulse"></span> Secure member access</div><h2>Your verification<br /><em>workspace.</em></h2><p>Create an account to manage checks, or sign in to continue where you left off.</p><div className="auth-points"><span><ShieldCheck size={17} /> Private by design</span><span><Check size={17} /> Verified workflows</span></div></div>
+        <div className="auth-card">
+          <div className="auth-tabs"><button className={authMode === 'signin' ? 'active' : ''} type="button" onClick={() => { setAuthMode('signin'); setAuthMessage('') }}>Sign in</button><button className={authMode === 'create' ? 'active' : ''} type="button" onClick={() => { setAuthMode('create'); setAuthMessage('') }}>Create account</button></div>
+          <form onSubmit={handleAuthSubmit} noValidate={false}>
+            {authMode === 'create' && <label>Full name<input name="fullName" type="text" placeholder="Your full name" required /></label>}
+            <label>Email or phone number<input name="identifier" type="text" placeholder="you@example.com or 03001234567" required /></label>
+            {authMode === 'create' && <label>WhatsApp number<input name="whatsapp" type="tel" placeholder="03001234567" required /></label>}
+            <label className="password-field">Password<div><input name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" minLength="3" required /><button type="button" aria-label={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff size={17} /> : <Eye size={17} />}</button></div></label>
+            {authMode === 'signin' && <label className="remember"><input type="checkbox" /> Remember me for 7 days</label>}
+            {authMode === 'create' && <p className="terms-note">By creating an account, you agree to our Terms of Use. We will use your WhatsApp number for verification.</p>}
+            <button className="auth-submit" type="submit">{authMode === 'signin' ? 'Sign in' : 'Create account'} <ArrowUpRight size={17} /></button>
+            {authMessage && <div className="auth-message"><Check size={16} /> {authMessage}</div>}
+          </form>
+        </div>
+      </section>
 
       <section className="hero shell" id="top">
         <div className="hero-copy">
