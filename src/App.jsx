@@ -6,12 +6,15 @@ import {
   FileCheck2,
   Fingerprint,
   Gavel,
+  Home,
+  IdCard,
   Mail,
   Menu,
   MessageCircle,
   Search,
   ShieldCheck,
   Sparkles,
+  Building2,
   X,
 } from 'lucide-react'
 import './App.css'
@@ -83,7 +86,7 @@ function App() {
         <div className="step-grid"><article><span>01</span><Fingerprint size={27} /><h3>Start with identity</h3><p>Search a CNIC and establish the facts first.</p></article><article><span>02</span><FileCheck2 size={27} /><h3>Read the full record</h3><p>See work history, ratings, reports and context.</p></article><article><span>03</span><Gavel size={27} /><h3>Act with clarity</h3><p>Get support when the answer needs a human.</p></article></div>
       </section>
 
-      <section className="services shell" id="services"><div className="section-kicker">03 / Built for real life</div><div className="services-head"><h2>Check the details<br /><em>that matter.</em></h2><Sparkles size={32} /></div><div className="service-list"><a href="#search"><span>01</span><strong>Employee verification</strong><small>Background and employment records</small><ArrowUpRight /></a><a href="#search"><span>02</span><strong>Domestic staff checks</strong><small>Confidence for the people closest to home</small><ArrowUpRight /></a><a href="#search"><span>03</span><strong>Company reviews</strong><small>Workplace conduct and ratings</small><ArrowUpRight /></a></div></section>
+      <section className="services shell" id="services"><div className="section-kicker">03 / Built for real life</div><div className="services-head"><h2>Check the details<br /><em>that matter.</em></h2><Sparkles size={32} /></div><div className="service-list"><a href="#search"><span>01</span><IdCard className="service-icon" size={23} /><strong>Employee verification</strong><small>Background and employment records</small><ArrowUpRight /></a><a href="#search"><span>02</span><Home className="service-icon" size={23} /><strong>Domestic staff checks</strong><small>Confidence for the people closest to home</small><ArrowUpRight /></a><a href="#search"><span>03</span><Building2 className="service-icon" size={23} /><strong>Company reviews</strong><small>Workplace conduct and ratings</small><ArrowUpRight /></a></div></section>
 
       <section className="closing shell" id="support"><div><div className="eyebrow"><span className="pulse"></span> Here when the answer matters</div><h2>Good decisions<br /><em>feel different.</em></h2></div><a className="button button-lime" href="mailto:info@employeeverifier.com">Talk to our team <ArrowUpRight size={18} /></a></section>
       <footer className="footer shell">

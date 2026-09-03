@@ -42,6 +42,17 @@ h1, h2, h3, p { margin: 0; }.hero h1 { font: 600 clamp(55px, 7vw, 96px)/.94 'Pla
 @keyframes tag-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
 @keyframes object-float { 0%, 100% { translate: 0 0; } 50% { translate: 5px -8px; } }
 
+/* Services: file-case entries */
+.services { padding-top: 105px; padding-bottom: 105px; }
+.service-list { border: 1px solid rgba(189,222,244,.2); border-radius: 14px; overflow: hidden; background: #0d3965; }
+.service-list a { grid-template-columns: 48px 34px minmax(190px, 1fr) 1fr 25px; min-height: 104px; padding: 0 24px; border-left: 0; position: relative; }
+.service-list a::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #09d3aa; }
+.service-list a:hover { padding-left: 30px; background: #124b7b; transform: none; }
+.service-list span { font: 700 13px 'Inter', sans-serif; letter-spacing: 1px; color: #09d3aa; }
+.service-list .service-icon { width: 34px; height: 34px; padding: 7px; color: #071b42; background: #bcefe6; border-radius: 50%; }
+.service-list strong { color: #f7fbff; font: 600 21px 'Playfair Display', serif; }.service-list small { color: #9db8d2; font-size: 14px; line-height: 1.5; }.service-list a > svg:last-child { color: #09d3aa; }
+@media (max-width: 760px) { .services { padding-top: 70px; padding-bottom: 70px; }.service-list a { grid-template-columns: 38px 34px 1fr 20px; gap: 10px; min-height: 94px; padding: 15px 16px; }.service-list strong { font-size: 17px; }.service-list small { grid-column: 3; grid-row: 2; font-size: 12px; }.service-list a:hover { padding-left: 20px; } }
+
 /* Identity-check app theme */
 main { color: #f7fbff; background: #071b42; }
 .nav { border-bottom-color: rgba(189,222,244,.2); }
