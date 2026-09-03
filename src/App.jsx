@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {
   ArrowUpRight,
+  ArrowLeft,
   BadgeCheck,
   BriefcaseBusiness,
   Check,
@@ -161,7 +162,7 @@ function AuthPage({ initialMode }) {
 
   return (
     <main className="auth-page">
-      <header className="auth-nav"><a className="brand" href="/"><span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><i></i></span><span>EMPLOYEE<span>VERIFIER</span></span></a><a className="back-link" href="/"><ArrowUpRight size={16} /> Back to website</a></header>
+      <header className="auth-nav"><a className="brand" href="/"><span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><i></i></span><span>EMPLOYEE<span>VERIFIER</span></span></a><a className="back-link" href="/"><ArrowLeft size={19} /> Back to website</a></header>
       <section className={`auth-section shell ${authMode === 'signin' ? 'signin-layout' : 'register-layout'}`}>
         <div className="auth-intro"><div className="eyebrow"><span className="pulse"></span> Secure member access</div><h2>{authMode === 'signin' ? <>Welcome<br /><em>back.</em></> : <>Start your<br /><em>verification.</em></>}</h2><p>{authMode === 'signin' ? 'Sign in to access your Employee Verifier workspace.' : 'Create an account to manage checks and verification requests.'}</p><div className="auth-points"><span><ShieldCheck size={17} /> Private by design</span><span><Check size={17} /> Verified workflows</span></div></div>
         <div className="auth-card">
