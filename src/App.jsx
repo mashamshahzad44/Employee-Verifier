@@ -94,8 +94,8 @@ function App() {
             <a href="/auth/login" className="top-login-btn">
               <UserRound size={15} /> Login
             </a>
-            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="top-wa-btn" aria-label="WhatsApp Us">
-              <MessageCircle size={16} />
+            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="top-wa-btn" aria-label="Contact on WhatsApp">
+              <MessageCircle size={18} />
             </a>
           </div>
         </div>
@@ -200,7 +200,7 @@ function App() {
           <div className="eyebrow">
             <span className="pulse"></span> Trusted Verification &amp; Records
           </div>
-          <h1>Know who<br /><em>you’re trusting.</em></h1>
+          <h1>Know who<br /><em>you’re trusting</em></h1>
           <p className="hero-intro">
             The smarter way to verify people, protect your business reputation, and make decisions with total confidence.
           </p>
@@ -234,7 +234,6 @@ function App() {
           <div className="floating-tag tag-two">
             <span>+1,240</span> checks this month
           </div>
-          <span className="visual-number">01</span>
         </div>
       </section>
 
@@ -242,7 +241,7 @@ function App() {
       <section className="search-panel shell" id="search">
         <div className="section-kicker">01 / Record Lookup</div>
         <div className="search-heading">
-          <h2>Check Records.<br /><span>Verify People.</span></h2>
+          <h2>Check Records<br /><span>Verify People</span></h2>
           <p>Know Before You Decide. Look beyond a name and find the verified history behind it.</p>
         </div>
         <form className="search-form" onSubmit={handleSearch}>
@@ -297,7 +296,7 @@ function App() {
       <section className="services shell" id="services">
         <div className="section-kicker">02 / What We Offer</div>
         <div className="services-head">
-          <h2>Check the details<br /><em>that matter.</em></h2>
+          <h2>Check the details<br /><em>that matter</em></h2>
           <Sparkles size={32} />
         </div>
         <div className="service-list">
@@ -336,7 +335,7 @@ function App() {
       <section className="what-we-check shell" id="what-we-check">
         <div className="section-kicker">03 / Comprehensive Coverage</div>
         <div className="section-title">
-          <h2>Verification<br /><em>Redefined.</em></h2>
+          <h2>Verification<br /><em>Redefined</em></h2>
           <p>Every check is processed through multi-layered data verification protocols.</p>
         </div>
         <div className="check-grid">
@@ -371,7 +370,7 @@ function App() {
       <section className="complaint-section shell" id="complaints">
         <div className="section-kicker">04 / Action Center</div>
         <div className="section-title">
-          <h2>Submit an Inquiry<br /><em>or Complaint.</em></h2>
+          <h2>Submit an Inquiry<br /><em>or Complaint</em></h2>
           <p>We take accuracy and integrity seriously. Get official assistance from our team.</p>
         </div>
         <div className="action-box">
@@ -427,7 +426,7 @@ function App() {
       <section className="faq-section shell" id="faq">
         <div className="section-kicker">05 / Help &amp; FAQs</div>
         <div className="section-title">
-          <h2>Frequently Asked<br /><em>Questions.</em></h2>
+          <h2>Frequently Asked<br /><em>Questions</em></h2>
           <p>Everything you need to know about Employee Verifier procedures.</p>
         </div>
         <div className="faq-list">
@@ -447,7 +446,7 @@ function App() {
       <section className="closing shell" id="support">
         <div>
           <div className="eyebrow"><span className="pulse"></span> Here when accuracy matters</div>
-          <h2>Good decisions<br /><em>feel different.</em></h2>
+          <h2>Good decisions<br /><em>feel different</em></h2>
         </div>
         <a className="button button-teal" href="https://wa.me/447777793786" target="_blank" rel="noreferrer">
           Talk to our legal team <ArrowUpRight size={18} />
@@ -458,7 +457,7 @@ function App() {
       <footer className="footer shell">
         <div className="footer-brand">
           <a className="brand" href="#top">
-            <span className="brand-mark"><ShieldCheck size={20} /></span>
+            <span className="brand-mark"><ShieldCheck size={20} /><Fingerprint size={14} className="brand-fingerprint" /></span>
             <span className="brand-text">EMPLOYEE<span className="brand-highlight">VERIFIER</span></span>
           </a>
           <p>Identity and employment verification,<br />public records, and legal support in one place.</p>
@@ -500,6 +499,7 @@ function App() {
   )
 }
 
+/* Restored Original Login / Sign Up Page */
 function AuthPage({ initialMode }) {
   const [authMode, setAuthMode] = useState(initialMode)
   const [showPassword, setShowPassword] = useState(false)
@@ -512,7 +512,7 @@ function AuthPage({ initialMode }) {
       form.reportValidity()
       return
     }
-    setAuthMessage(authMode === 'signin' ? 'Sign in details submitted.' : 'Your account has been created.')
+    setAuthMessage(authMode === 'signin' ? 'Sign in details are ready to submit.' : 'Your account details are ready to submit.')
   }
 
   const switchMode = (mode) => {
@@ -525,14 +525,26 @@ function AuthPage({ initialMode }) {
     <main className="auth-page">
       <header className="auth-nav">
         <a className="brand" href="/">
-          <span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /></span>
+          <span className="brand-mark">
+            <ShieldCheck size={24} strokeWidth={2.5} />
+            <Fingerprint size={16} className="brand-fingerprint" />
+          </span>
           <span className="brand-text">EMPLOYEE<span className="brand-highlight">VERIFIER</span></span>
         </a>
         <a className="back-link" href="/">
           <ArrowLeft size={19} /> Back to website
         </a>
       </header>
-      <section className="auth-section shell">
+      <section className={`auth-section shell ${authMode === 'signin' ? 'signin-layout' : 'register-layout'}`}>
+        <div className="auth-intro">
+          <div className="eyebrow"><span className="pulse"></span> Secure member access</div>
+          <h2>{authMode === 'signin' ? <>Welcome<br /><em>back</em></> : <>Start your<br /><em>verification</em></>}</h2>
+          <p>{authMode === 'signin' ? 'Sign in to access your Employee Verifier workspace.' : 'Create an account to manage checks and verification requests.'}</p>
+          <div className="auth-points">
+            <span><ShieldCheck size={17} /> Private by design</span>
+            <span><Check size={17} /> Verified workflows</span>
+          </div>
+        </div>
         <div className="auth-card">
           <div className="auth-tabs">
             <button className={authMode === 'signin' ? 'active' : ''} type="button" onClick={() => switchMode('signin')}>
