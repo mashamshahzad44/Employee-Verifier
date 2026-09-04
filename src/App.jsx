@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   ArrowUpRight,
   ArrowLeft,
@@ -33,7 +33,11 @@ import {
   AlertCircle,
   Users,
   Award,
-  UserCheck
+  Send,
+  MessageSquare,
+  ArrowRight,
+  UserCheck,
+  Heart
 } from 'lucide-react'
 import './App.css'
 
@@ -43,9 +47,46 @@ function App() {
   const [searched, setSearched] = useState(false)
   const [activeFaq, setActiveFaq] = useState(null)
   const [activeTab, setActiveTab] = useState('inquiry')
+  const [viewMode, setViewMode] = useState(() => {
+    const path = window.location.pathname
+    if (path === '/complaint' || path === '/home/Complaint') return 'complaint'
+    if (path === '/inquiry' || path === '/home/HowItWorks') return 'inquiry'
+    if (path === '/services' || path === '/home/Services') return 'services'
+    return 'home'
+  })
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname
+      if (path === '/complaint' || path === '/home/Complaint') setViewMode('complaint')
+      else if (path === '/inquiry' || path === '/home/HowItWorks') setViewMode('inquiry')
+      else if (path === '/services' || path === '/home/Services') setViewMode('services')
+      else setViewMode('home')
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  const navigateTo = (mode, path) => {
+    setViewMode(mode)
+    window.history.pushState({}, '', path)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   if (window.location.pathname === '/auth/login' || window.location.pathname === '/auth/register') {
     return <AuthPage initialMode={window.location.pathname === '/auth/register' ? 'create' : 'signin'} />
+  }
+
+  if (viewMode === 'complaint') {
+    return <ComplaintProcessPage onBack={() => navigateTo('home', '/')} navigateTo={navigateTo} />
+  }
+
+  if (viewMode === 'inquiry') {
+    return <InquiryProcessPage onBack={() => navigateTo('home', '/')} navigateTo={navigateTo} />
+  }
+
+  if (viewMode === 'services') {
+    return <ServicesPage onBack={() => navigateTo('home', '/')} navigateTo={navigateTo} />
   }
 
   const handleSearch = (event) => {
@@ -106,7 +147,7 @@ function App() {
 
       {/* Main Navigation Bar */}
       <nav className="nav shell">
-        <a className="brand" href="#top" aria-label="Employee Verifier home">
+        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); navigateTo('home', '/'); }} aria-label="Employee Verifier home">
           <span className="brand-mark">
             <ShieldCheck size={24} strokeWidth={2.5} />
             <Fingerprint size={16} className="brand-fingerprint" />
@@ -116,12 +157,12 @@ function App() {
           </span>
         </a>
 
-        {/* Exact Desktop Navigation Links matching the red screenshot */}
+        {/* Desktop Navigation Links */}
         <div className="nav-links desktop-only">
-          <a href="#top">Home</a>
+          <a href="#top" onClick={() => navigateTo('home', '/')}>Home</a>
           <a href="#how-it-works">How it works</a>
-          <a href="#services">Services</a>
-          <a href="#complaints">Complaints</a>
+          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>Services</a>
+          <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }}>Complaints</a>
           <a href="#legal-team">Legal Team</a>
           <a href="#about">About</a>
           <a href="#faq">FAQ</a>
@@ -162,16 +203,16 @@ function App() {
           </button>
         </div>
         <div className="drawer-body">
-          <a href="#top" onClick={() => setMenuOpen(false)}>
+          <a href="#top" onClick={() => { setMenuOpen(false); navigateTo('home', '/'); }}>
             <Home size={19} /> Home <ArrowUpRight size={16} />
           </a>
           <a href="#how-it-works" onClick={() => setMenuOpen(false)}>
             <FileCheck2 size={19} /> How it works <ArrowUpRight size={16} />
           </a>
-          <a href="#services" onClick={() => setMenuOpen(false)}>
+          <a href="/services" onClick={() => { setMenuOpen(false); navigateTo('services', '/services'); }}>
             <BriefcaseBusiness size={19} /> Services <ArrowUpRight size={16} />
           </a>
-          <a href="#complaints" onClick={() => setMenuOpen(false)}>
+          <a href="/complaint" onClick={() => { setMenuOpen(false); navigateTo('complaint', '/complaint'); }}>
             <FileWarning size={19} /> Complaints <ArrowUpRight size={16} />
           </a>
           <a href="#legal-team" onClick={() => setMenuOpen(false)}>
@@ -262,70 +303,7 @@ function App() {
         </div>
       </section>
 
-      {/* "Who is this for?" Section */}
-      <section className="who-is-this-for shell">
-        <div className="section-kicker">Tailored Screening Solutions</div>
-        <div className="section-title">
-          <h2>Who is this for</h2>
-          <p>Clear, actionable background signals for every hiring and decision scenario.</p>
-        </div>
-        <div className="who-grid">
-          <div className="who-card">
-            <div className="who-icon"><Users size={26} /></div>
-            <h3>For Employers</h3>
-            <span className="who-tagline">Hire with confidence</span>
-            <p>Verify candidate employment history, job duration, and supervisory references before making an offer.</p>
-          </div>
-          <div className="who-card">
-            <div className="who-icon"><Home size={26} /></div>
-            <h3>For Landlords</h3>
-            <span className="who-tagline">Verify tenants before you rent</span>
-            <p>Screen prospective domestic staff and tenants for identity authentication and public signals.</p>
-          </div>
-          <div className="who-card">
-            <div className="who-icon"><Building2 size={26} /></div>
-            <h3>For Businesses</h3>
-            <span className="who-tagline">Vet partners and vendors</span>
-            <p>Audit corporate track records, partner credentials, and service vendors to protect reputation.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* "How it works" 3-Step Horizontal Strip */}
-      <section className="how-it-works-strip shell" id="how-it-works">
-        <div className="section-kicker">Simple 3-Step Process</div>
-        <div className="section-title">
-          <h2>How it works</h2>
-          <p>Move from a basic search to a verified trust report in three clear steps.</p>
-        </div>
-        <div className="steps-horizontal">
-          <div className="step-item">
-            <div className="step-circle">1</div>
-            <div className="step-content">
-              <h3>Submit details</h3>
-              <p>Enter the 13-digit CNIC, full name, or candidate verification request details.</p>
-            </div>
-          </div>
-          <div className="step-connector"></div>
-          <div className="step-item">
-            <div className="step-circle">2</div>
-            <div className="step-content">
-              <h3>We verify</h3>
-              <p>Our platform audits databases, employment tenure, and legal record signals.</p>
-            </div>
-          </div>
-          <div className="step-connector"></div>
-          <div className="step-item">
-            <div className="step-circle">3</div>
-            <div className="step-content">
-              <h3>Get your trust report</h3>
-              <p>Receive an encrypted, verified trust signal score with detailed background insights.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Prominent CNIC Search Panel & Quick Actions */}
+      {/* Prominent CNIC Search Panel */}
       <section className="search-panel shell" id="search">
         <div className="section-kicker">Record Lookup</div>
         <div className="search-heading">
@@ -354,59 +332,89 @@ function App() {
           <span><Lock size={15} /> Encrypted & Confidential</span>
           <span><Sparkles size={15} /> Available 24 / 7</span>
         </div>
+      </section>
 
-        {/* Quick Action Cards */}
-        <div className="quick-actions-grid">
-          <div className="quick-card">
-            <div className="qc-icon"><FileText size={24} /></div>
-            <div className="qc-info">
-              <h3>Request Detailed Inquiry</h3>
-              <p>Need comprehensive background checks, document verification, or reference audits?</p>
-            </div>
-            <a href="#complaints" className="qc-btn" onClick={() => setActiveTab('inquiry')}>
-              Submit Inquiry <ArrowUpRight size={16} />
-            </a>
+      {/* How It Works Section (Placed AFTER Record Lookup) */}
+      <section className="how-it-works-section shell" id="how-it-works">
+        <div className="section-kicker">A Clear Process</div>
+        <div className="section-title">
+          <h2>How it works</h2>
+          <p>Move from a basic identity search to the right next action in three clear steps.</p>
+        </div>
+        
+        {/* 3 Step Cards */}
+        <div className="process-cards-grid">
+          <div className="process-card">
+            <div className="process-badge">1</div>
+            <div className="process-icon-box"><IdCard size={26} /></div>
+            <h3>Search by CNIC</h3>
+            <p>Enter the 13-digit CNIC, or use advanced search when the CNIC is unavailable.</p>
           </div>
-          <div className="quick-card">
-            <div className="qc-icon alert-icon"><FileWarning size={24} /></div>
-            <div className="qc-info">
-              <h3>Register Complaint / Feedback</h3>
-              <p>Report fraudulent records, misconduct, or submit official verification grievances.</p>
-            </div>
-            <a href="#complaints" className="qc-btn qc-btn-alert" onClick={() => setActiveTab('complaint')}>
-              Register Complaint <ArrowUpRight size={16} />
-            </a>
+          <div className="process-card">
+            <div className="process-badge">2</div>
+            <div className="process-icon-box"><FileCheck2 size={26} /></div>
+            <h3>Review information</h3>
+            <p>Read the available records, complaints and feedback in context.</p>
+          </div>
+          <div className="process-card">
+            <div className="process-badge">3</div>
+            <div className="process-icon-box"><ArrowRight size={26} /></div>
+            <h3>Choose the next step</h3>
+            <p>Continue with an inquiry, share feedback, or request legal support.</p>
+          </div>
+        </div>
+
+        {/* 2 Process Action Cards Below How It Works */}
+        <div className="process-action-grid">
+          <div className="process-action-card">
+            <span className="pac-eyebrow">SHARE YOUR EXPERIENCE</span>
+            <h3>Register a complaint or feedback</h3>
+            <p>Submit positive or negative feedback about a person or service provider.</p>
+            <button className="pac-btn pac-btn-red" onClick={() => navigateTo('complaint', '/complaint')}>
+              View complaint process <ArrowRight size={17} />
+            </button>
+          </div>
+
+          <div className="process-action-card">
+            <span className="pac-eyebrow">NEED MORE DETAILS?</span>
+            <h3>Request a detailed inquiry</h3>
+            <p>Ask our team to review the information and context you provide.</p>
+            <button className="pac-btn pac-btn-teal" onClick={() => navigateTo('inquiry', '/inquiry')}>
+              View inquiry process <ArrowRight size={17} />
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Overview Section */}
       <section className="services shell" id="services">
         <div className="section-kicker">Services &amp; Solutions</div>
         <div className="services-head">
           <h2>Check the details<br /><em>that matter</em></h2>
-          <Sparkles size={32} />
+          <button className="button button-teal" onClick={() => navigateTo('services', '/services')}>
+            Explore All Services <ArrowRight size={17} />
+          </button>
         </div>
         <div className="service-list">
-          <a href="#search">
+          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>
             <IdCard className="service-icon" size={23} />
             <strong>Employee Verification</strong>
             <small>Background history, work duration & employment records</small>
             <ArrowUpRight />
           </a>
-          <a href="#search">
+          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>
             <Home className="service-icon" size={23} />
             <strong>Domestic Staff Checks</strong>
             <small>Confidence and safety for home drivers, maids, and guards</small>
             <ArrowUpRight />
           </a>
-          <a href="#search">
+          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>
             <Building2 className="service-icon" size={23} />
             <strong>Company Reviews</strong>
             <small>Workplace conduct ratings, corporate track record & reviews</small>
             <ArrowUpRight />
           </a>
-          <a href="#search">
+          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>
             <Gavel className="service-icon" size={23} />
             <strong>Legal & Criminal Clearance</strong>
             <small>Public record signals, police verification & court checks</small>
@@ -517,49 +525,8 @@ function App() {
         </div>
       </section>
 
-      {/* Closing CTA */}
-      <section className="closing shell" id="support">
-        <div>
-          <div className="eyebrow"><span className="pulse"></span> Here when accuracy matters</div>
-          <h2>Good decisions<br /><em>feel different</em></h2>
-        </div>
-        <a className="button button-teal" href="https://wa.me/447777793786" target="_blank" rel="noreferrer">
-          Talk to our legal team <ArrowUpRight size={18} />
-        </a>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer shell">
-        <div className="footer-brand">
-          <a className="brand" href="#top">
-            <span className="brand-mark"><ShieldCheck size={20} /><Fingerprint size={14} className="brand-fingerprint" /></span>
-            <span className="brand-text">EMPLOYEE<span className="brand-highlight">VERIFIER</span></span>
-          </a>
-          <p>Identity and employment verification,<br />public records, and legal support in one place.</p>
-        </div>
-        <div className="footer-contact">
-          <strong>Contact support</strong>
-          <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer">
-            <MessageCircle size={16} /> +44 7777 793786
-          </a>
-          <a href="mailto:info@employeeverifier.com">
-            <Mail size={16} /> info@employeeverifier.com
-          </a>
-        </div>
-        <div className="footer-explore">
-          <strong>Explore</strong>
-          <a href="#services">Services</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#complaints">Complaints</a>
-          <a href="#legal-team">Legal Team</a>
-          <a href="#about">About</a>
-          <a href="#faq">FAQ</a>
-        </div>
-        <div className="footer-bottom">
-          <span>© 2026 Employee Verifier. All rights reserved.</span>
-          <span>Verification • Records • Legal Advisory</span>
-        </div>
-      </footer>
+      {/* Rich Unified Footer */}
+      <FooterNav navigateTo={navigateTo} />
 
       {/* Floating WhatsApp Button */}
       <a
@@ -575,7 +542,439 @@ function App() {
   )
 }
 
-/* Centered & Attractive Sign In / Create Account Page */
+/* Dedicated Services Page View (Matching uploaded screenshots 2, 3, 4, 5) */
+function ServicesPage({ onBack, navigateTo }) {
+  return (
+    <main className="process-page">
+      {/* Top Helpline Header */}
+      <div className="top-bar">
+        <div className="shell top-bar-content">
+          <div className="helpline-info">
+            <span className="helpline-label">HELPLINE — MON TO SAT, 9AM-6PM</span>
+            <a href="tel:+447777793786" className="helpline-item">
+              <Phone size={14} /> +44 7777 793786
+            </a>
+            <a href="mailto:info@employeeverifier.com" className="helpline-item">
+              <Mail size={14} /> info@employeeverifier.com
+            </a>
+          </div>
+          <div className="top-bar-right">
+            <a href="/" onClick={(e) => { e.preventDefault(); onBack(); }} className="top-link">Home</a>
+            <a href="/auth/login" className="top-login-btn">
+              <UserRound size={15} /> Login
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="nav shell">
+        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); onBack(); }}>
+          <span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><Fingerprint size={16} className="brand-fingerprint" /></span>
+          <span className="brand-text">EMPLOYEE<span className="brand-highlight">VERIFIER</span></span>
+        </a>
+        <button className="back-link-btn" onClick={onBack}>
+          <ArrowLeft size={18} /> Back to main site
+        </button>
+      </nav>
+
+      {/* Services Hero Banner */}
+      <section className="services-hero shell">
+        <div className="eyebrow"><span className="pulse"></span> WHAT WE OFFER</div>
+        <h1>Our Services</h1>
+        <p className="process-intro">
+          Every feature is built for verification. Open a service to use its dedicated workflow — from a free basic search to a confidential inquiry and professional legal support.
+        </p>
+        <div className="services-hero-btns">
+          <a href="#all-services" className="button button-teal">Search records <ArrowRight size={17} /></a>
+          <a href="#services-journey" className="button button-outline">See how it works <ChevronDown size={17} /></a>
+        </div>
+      </section>
+
+      {/* 8 Creative Service Cards Grid (Matching Screenshots 3 & 4) */}
+      <section className="services-grid-section shell" id="all-services">
+        <div className="creative-services-grid">
+          <div className="cs-card">
+            <div className="cs-icon-box"><IdCard size={28} /></div>
+            <h3>Employee/CNIC Verification</h3>
+            <p>Search verified employee records securely using a 13-digit CNIC.</p>
+            <a href="/#search" onClick={(e) => { e.preventDefault(); navigateTo('home', '/#search'); }} className="cs-link">Start search <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><UserCheck size={28} /></div>
+            <h3>Employee Details</h3>
+            <p>View available identity and employment information in one place.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">View details <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Building2 size={28} /></div>
+            <h3>Company Reviews</h3>
+            <p>Access authentic company feedback attached to verified records.</p>
+            <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }} className="cs-link">Check reviews <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Lock size={28} /></div>
+            <h3>Private Inquiries</h3>
+            <p>Submit a confidential background-information request securely.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Request inquiry <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Heart size={28} /></div>
+            <h3>Marital Services</h3>
+            <p>Request verification of marital status and related background records.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Request audit <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Users size={28} /></div>
+            <h3>Family &amp; Personal Checks</h3>
+            <p>Check the background of domestic staff, tenants and personal contacts.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Check background <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><FileCheck2 size={28} /></div>
+            <h3>Service Provider Review</h3>
+            <p>Review records, ratings and feedback for a service provider before you hire.</p>
+            <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }} className="cs-link">Review provider <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Scale size={28} /></div>
+            <h3>Legal Team Support</h3>
+            <p>Connect with experienced legal professionals for guidance.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Get legal support <ArrowRight size={15} /></a>
+          </div>
+        </div>
+      </section>
+
+      {/* 4-Stage Journey Strip (Matching Screenshot 5) */}
+      <section className="services-journey-section shell" id="services-journey">
+        <div className="section-kicker">HOW IT WORKS</div>
+        <div className="section-title">
+          <h2>From a search to the right next step</h2>
+          <p>Every service supports a different stage of the same journey.</p>
+        </div>
+        
+        <div className="journey-4grid">
+          <div className="journey-card">
+            <span className="journey-num">01</span>
+            <div className="journey-icon"><Search size={24} /></div>
+            <h3>Search</h3>
+            <p>Enter a CNIC or use advanced search</p>
+          </div>
+          <div className="journey-card">
+            <span className="journey-num">02</span>
+            <div className="journey-icon"><FileCheck2 size={24} /></div>
+            <h3>Review</h3>
+            <p>Read available records and feedback in context</p>
+          </div>
+          <div className="journey-card">
+            <span className="journey-num">03</span>
+            <div className="journey-icon"><ArrowRight size={24} /></div>
+            <h3>Act</h3>
+            <p>Continue with an inquiry, complaint or legal route</p>
+          </div>
+          <div className="journey-card">
+            <span className="journey-num">04</span>
+            <div className="journey-icon"><ShieldCheck size={24} /></div>
+            <h3>Resolve</h3>
+            <p>Dispute or escalate a record where needed</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Rich Footer */}
+      <FooterNav navigateTo={navigateTo} />
+    </main>
+  )
+}
+
+/* Dedicated Complaint Process Page View (Matching uploaded screenshots) */
+function ComplaintProcessPage({ onBack, navigateTo }) {
+  return (
+    <main className="process-page">
+      {/* Top Helpline Header */}
+      <div className="top-bar">
+        <div className="shell top-bar-content">
+          <div className="helpline-info">
+            <span className="helpline-label">HELPLINE — MON TO SAT, 9AM-6PM</span>
+            <a href="tel:+447777793786" className="helpline-item">
+              <Phone size={14} /> +44 7777 793786
+            </a>
+            <a href="mailto:info@employeeverifier.com" className="helpline-item">
+              <Mail size={14} /> info@employeeverifier.com
+            </a>
+          </div>
+          <div className="top-bar-right">
+            <a href="/" onClick={(e) => { e.preventDefault(); onBack(); }} className="top-link">Home</a>
+            <a href="/auth/login" className="top-login-btn">
+              <UserRound size={15} /> Login
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="nav shell">
+        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); onBack(); }}>
+          <span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><Fingerprint size={16} className="brand-fingerprint" /></span>
+          <span className="brand-text">EMPLOYEE<span className="brand-highlight">VERIFIER</span></span>
+        </a>
+        <button className="back-link-btn" onClick={onBack}>
+          <ArrowLeft size={18} /> Back to main site
+        </button>
+      </nav>
+
+      {/* Complaint Process Banner */}
+      <section className="process-hero shell">
+        <div className="eyebrow"><span className="pulse"></span> COMPLAINTS &amp; FEEDBACK</div>
+        <h1>Put your experience<br /><em>on record</em></h1>
+        <p className="process-intro">
+          Register positive or negative feedback about an individual or service provider you dealt with, in three clear steps.
+        </p>
+      </section>
+
+      {/* 3 Step Cards */}
+      <section className="process-steps-section shell">
+        <div className="process-cards-grid">
+          <div className="process-card">
+            <div className="process-badge">1</div>
+            <div className="process-icon-box"><IdCard size={26} /></div>
+            <h3>Identify the subject</h3>
+            <p>Name the individual or service provider accurately so the record attaches to the right profile.</p>
+          </div>
+          <div className="process-card">
+            <div className="process-badge">2</div>
+            <div className="process-icon-box"><MessageSquare size={26} /></div>
+            <h3>Describe what happened</h3>
+            <p>Use clear, factual language and prepare any supporting information that may help the review.</p>
+          </div>
+          <div className="process-card">
+            <div className="process-badge">3</div>
+            <div className="process-icon-box"><Send size={26} /></div>
+            <h3>Submit and track</h3>
+            <p>Sign in to submit, then return any time to your record to follow its progress.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Action Cards Grid */}
+      <section className="process-action-section shell">
+        <div className="process-action-grid">
+          <div className="process-action-card">
+            <span className="pac-eyebrow">READY TO SUBMIT?</span>
+            <h3>Register a complaint or feedback</h3>
+            <p>Submission requires an account so you can return to your record and track its progress.</p>
+            <a href="/auth/login" className="pac-btn pac-btn-red">
+              Sign in to continue <ArrowRight size={17} />
+            </a>
+          </div>
+
+          <div className="process-action-card">
+            <span className="pac-eyebrow">NEW HERE?</span>
+            <h3>Create an account</h3>
+            <p>Set up an account in a few minutes, then submit and manage your feedback securely.</p>
+            <a href="/auth/register" className="pac-btn pac-btn-teal">
+              Create an account <ArrowRight size={17} />
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom Banner */}
+        <div className="process-bottom-banner">
+          <div>
+            <span className="pac-eyebrow">START WITH THE INFORMATION AVAILABLE</span>
+            <h2>Ready to put your experience on record?</h2>
+          </div>
+          <div className="pbb-actions">
+            <a href="/auth/login" className="button button-teal">
+              Sign in to continue <ArrowRight size={17} />
+            </a>
+            <button className="button button-outline" onClick={onBack}>
+              Search records <Search size={16} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Rich Footer Matching Screenshot 1 */}
+      <FooterNav navigateTo={navigateTo} />
+    </main>
+  )
+}
+
+/* Dedicated Inquiry Process Page View */
+function InquiryProcessPage({ onBack, navigateTo }) {
+  return (
+    <main className="process-page">
+      {/* Top Helpline Header */}
+      <div className="top-bar">
+        <div className="shell top-bar-content">
+          <div className="helpline-info">
+            <span className="helpline-label">HELPLINE — MON TO SAT, 9AM-6PM</span>
+            <a href="tel:+447777793786" className="helpline-item">
+              <Phone size={14} /> +44 7777 793786
+            </a>
+            <a href="mailto:info@employeeverifier.com" className="helpline-item">
+              <Mail size={14} /> info@employeeverifier.com
+            </a>
+          </div>
+          <div className="top-bar-right">
+            <a href="/" onClick={(e) => { e.preventDefault(); onBack(); }} className="top-link">Home</a>
+            <a href="/auth/login" className="top-login-btn">
+              <UserRound size={15} /> Login
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="nav shell">
+        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); onBack(); }}>
+          <span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><Fingerprint size={16} className="brand-fingerprint" /></span>
+          <span className="brand-text">EMPLOYEE<span className="brand-highlight">VERIFIER</span></span>
+        </a>
+        <button className="back-link-btn" onClick={onBack}>
+          <ArrowLeft size={18} /> Back to main site
+        </button>
+      </nav>
+
+      {/* Inquiry Process Banner */}
+      <section className="process-hero shell">
+        <div className="eyebrow"><span className="pulse"></span> NEED MORE DETAILS?</div>
+        <h1>Request a detailed<br /><em>verification inquiry</em></h1>
+        <p className="process-intro">
+          Ask our specialized team to audit background records, work history, and references in three clear steps.
+        </p>
+      </section>
+
+      {/* 3 Step Cards */}
+      <section className="process-steps-section shell">
+        <div className="process-cards-grid">
+          <div className="process-card">
+            <div className="process-badge">1</div>
+            <div className="process-icon-box"><IdCard size={26} /></div>
+            <h3>Identify the target subject</h3>
+            <p>Provide the 13-digit CNIC, full legal name, or job title of the employee/candidate to verify.</p>
+          </div>
+          <div className="process-card">
+            <div className="process-badge">2</div>
+            <div className="process-icon-box"><BriefcaseBusiness size={26} /></div>
+            <h3>Define background scope</h3>
+            <p>Select required verification points including work tenure, supervisor audit, and legal clearance.</p>
+          </div>
+          <div className="process-card">
+            <div className="process-badge">3</div>
+            <div className="process-icon-box"><FileCheck2 size={26} /></div>
+            <h3>Receive verified report</h3>
+            <p>Get an official confidential report with trust signals and verified background insights within 24-48 hours.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Action Cards Grid */}
+      <section className="process-action-section shell">
+        <div className="process-action-grid">
+          <div className="process-action-card">
+            <span className="pac-eyebrow">READY TO AUDIT?</span>
+            <h3>Submit a verification inquiry</h3>
+            <p>Our verification team conducts multi-layered employer, police, and credential checks.</p>
+            <a href="/auth/login" className="pac-btn pac-btn-teal">
+              Sign in to request inquiry <ArrowRight size={17} />
+            </a>
+          </div>
+
+          <div className="process-action-card">
+            <span className="pac-eyebrow">NEW CLIENT?</span>
+            <h3>Create an account</h3>
+            <p>Create an account to submit candidate inquiries and track audit reports securely.</p>
+            <a href="/auth/register" className="pac-btn pac-btn-teal">
+              Create an account <ArrowRight size={17} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Rich Footer Matching Screenshot 1 */}
+      <FooterNav navigateTo={navigateTo} />
+    </main>
+  )
+}
+
+/* Rich Unified Footer Component Matching Screenshot 1 */
+function FooterNav({ navigateTo }) {
+  return (
+    <footer className="footer-rich shell">
+      <div className="footer-top-banner">
+        <h2>Need verification or legal support? <a href="tel:+447777793786" className="footer-phone-highlight">+44 7777 793786</a></h2>
+      </div>
+
+      <div className="footer-grid">
+        <div className="footer-col-brand">
+          <span className="footer-kicker">VERIFY BEFORE YOU DECIDE</span>
+          <p className="footer-desc">Records, reputation and verification in one trusted place.</p>
+          <a href="#search" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('home', '/#search'); } }} className="footer-arrow-link">
+            Search a record <ArrowRight size={15} />
+          </a>
+        </div>
+
+        <div className="footer-col">
+          <strong>Explore</strong>
+          <a href="/" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('home', '/'); } }}>Home</a>
+          <a href="#how-it-works" onClick={(e) => { if (navigateTo) { navigateTo('home', '/#how-it-works'); } }}>How it works</a>
+          <a href="/services" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('services', '/services'); } }}>Services</a>
+          <a href="#search" onClick={(e) => { if (navigateTo) { navigateTo('home', '/#search'); } }}>Search records</a>
+        </div>
+
+        <div className="footer-col">
+          <strong>Get support</strong>
+          <a href="/complaint" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('complaint', '/complaint'); } }}>Register a complaint</a>
+          <a href="/inquiry" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('inquiry', '/inquiry'); } }}>Request an inquiry</a>
+          <a href="#legal-team" onClick={(e) => { if (navigateTo) { navigateTo('home', '/#legal-team'); } }}>Legal support</a>
+        </div>
+
+        <div className="footer-col">
+          <strong>Connect with us</strong>
+          <a href="mailto:info@employeeverifier.com" className="footer-email-link">
+            <Mail size={15} /> info@employeeverifier.com
+          </a>
+          <div className="footer-social-row">
+            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="fs-btn">
+              <MessageCircle size={16} />
+            </a>
+            <a href="mailto:info@employeeverifier.com" aria-label="Email" className="fs-btn">
+              <Mail size={16} />
+            </a>
+            <a href="#top" aria-label="Security" className="fs-btn">
+              <ShieldCheck size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="footer-bottom-row">
+        <div className="footer-legal-links">
+          <a href="#about">About</a>
+          <a href="#faq">FAQ</a>
+          <a href="#support">Contact</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+          <a href="#disclaimer">Disclaimer</a>
+        </div>
+        <div className="footer-copyright">
+          © 2026 Employee Verifier. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+/* Centered & Beautiful Auth Page */
 function AuthPage({ initialMode }) {
   const [authMode, setAuthMode] = useState(initialMode)
   const [showPassword, setShowPassword] = useState(false)
