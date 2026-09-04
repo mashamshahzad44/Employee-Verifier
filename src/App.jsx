@@ -161,7 +161,7 @@ function App() {
         <div className="nav-links desktop-only">
           <a href="#top" onClick={() => navigateTo('home', '/')}>Home</a>
           <a href="#how-it-works">How it works</a>
-          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>Services</a>
+          <a href="#services">Services</a>
           <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }}>Complaints</a>
           <a href="#legal-team">Legal Team</a>
           <a href="#about">About</a>
@@ -209,7 +209,7 @@ function App() {
           <a href="#how-it-works" onClick={() => setMenuOpen(false)}>
             <FileCheck2 size={19} /> How it works <ArrowUpRight size={16} />
           </a>
-          <a href="/services" onClick={() => { setMenuOpen(false); navigateTo('services', '/services'); }}>
+          <a href="#services" onClick={() => setMenuOpen(false)}>
             <BriefcaseBusiness size={19} /> Services <ArrowUpRight size={16} />
           </a>
           <a href="/complaint" onClick={() => { setMenuOpen(false); navigateTo('complaint', '/complaint'); }}>
@@ -386,40 +386,71 @@ function App() {
         </div>
       </section>
 
-      {/* Services Overview Section */}
+      {/* Our Services Section (Creative 8 Service Cards Grid directly on Landing Page) */}
       <section className="services shell" id="services">
-        <div className="section-kicker">Services &amp; Solutions</div>
+        <div className="section-kicker">WHAT WE OFFER</div>
         <div className="services-head">
-          <h2>Check the details<br /><em>that matter</em></h2>
-          <button className="button button-teal" onClick={() => navigateTo('services', '/services')}>
-            Explore All Services <ArrowRight size={17} />
-          </button>
+          <h2>Our Services</h2>
+          <p className="services-sub">
+            Every feature is built for verification. Choose a service to view details — from basic search to confidential inquiry and legal support.
+          </p>
         </div>
-        <div className="service-list">
-          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>
-            <IdCard className="service-icon" size={23} />
-            <strong>Employee Verification</strong>
-            <small>Background history, work duration & employment records</small>
-            <ArrowUpRight />
-          </a>
-          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>
-            <Home className="service-icon" size={23} />
-            <strong>Domestic Staff Checks</strong>
-            <small>Confidence and safety for home drivers, maids, and guards</small>
-            <ArrowUpRight />
-          </a>
-          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>
-            <Building2 className="service-icon" size={23} />
-            <strong>Company Reviews</strong>
-            <small>Workplace conduct ratings, corporate track record & reviews</small>
-            <ArrowUpRight />
-          </a>
-          <a href="/services" onClick={(e) => { e.preventDefault(); navigateTo('services', '/services'); }}>
-            <Gavel className="service-icon" size={23} />
-            <strong>Legal & Criminal Clearance</strong>
-            <small>Public record signals, police verification & court checks</small>
-            <ArrowUpRight />
-          </a>
+        <div className="creative-services-grid">
+          <div className="cs-card">
+            <div className="cs-icon-box"><IdCard size={28} /></div>
+            <h3>Employee/CNIC Verification</h3>
+            <p>Search verified employee records securely using a 13-digit CNIC.</p>
+            <a href="#search" className="cs-link">Start search <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><UserCheck size={28} /></div>
+            <h3>Employee Details</h3>
+            <p>View available identity and employment information in one place.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">View details <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Building2 size={28} /></div>
+            <h3>Company Reviews</h3>
+            <p>Access authentic company feedback attached to verified records.</p>
+            <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }} className="cs-link">Check reviews <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Lock size={28} /></div>
+            <h3>Private Inquiries</h3>
+            <p>Submit a confidential background-information request securely.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Request inquiry <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Heart size={28} /></div>
+            <h3>Marital Services</h3>
+            <p>Request verification of marital status and related background records.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Request audit <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Users size={28} /></div>
+            <h3>Family &amp; Personal Checks</h3>
+            <p>Check the background of domestic staff, tenants and personal contacts.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Check background <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><FileCheck2 size={28} /></div>
+            <h3>Service Provider Review</h3>
+            <p>Review records, ratings and feedback for a service provider before you hire.</p>
+            <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }} className="cs-link">Review provider <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><Scale size={28} /></div>
+            <h3>Legal Team Support</h3>
+            <p>Connect with experienced legal professionals for guidance.</p>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Get legal support <ArrowRight size={15} /></a>
+          </div>
         </div>
       </section>
 
@@ -542,7 +573,7 @@ function App() {
   )
 }
 
-/* Dedicated Services Page View (Matching uploaded screenshots 2, 3, 4, 5) */
+/* Dedicated Services Page View */
 function ServicesPage({ onBack, navigateTo }) {
   return (
     <main className="process-page">
@@ -591,7 +622,7 @@ function ServicesPage({ onBack, navigateTo }) {
         </div>
       </section>
 
-      {/* 8 Creative Service Cards Grid (Matching Screenshots 3 & 4) */}
+      {/* 8 Creative Service Cards Grid */}
       <section className="services-grid-section shell" id="all-services">
         <div className="creative-services-grid">
           <div className="cs-card">
@@ -652,7 +683,7 @@ function ServicesPage({ onBack, navigateTo }) {
         </div>
       </section>
 
-      {/* 4-Stage Journey Strip (Matching Screenshot 5) */}
+      {/* 4-Stage Journey Strip */}
       <section className="services-journey-section shell" id="services-journey">
         <div className="section-kicker">HOW IT WORKS</div>
         <div className="section-title">
@@ -694,7 +725,7 @@ function ServicesPage({ onBack, navigateTo }) {
   )
 }
 
-/* Dedicated Complaint Process Page View (Matching uploaded screenshots) */
+/* Dedicated Complaint Process Page View */
 function ComplaintProcessPage({ onBack, navigateTo }) {
   return (
     <main className="process-page">
@@ -802,7 +833,7 @@ function ComplaintProcessPage({ onBack, navigateTo }) {
         </div>
       </section>
 
-      {/* Rich Footer Matching Screenshot 1 */}
+      {/* Rich Footer */}
       <FooterNav navigateTo={navigateTo} />
     </main>
   )
@@ -900,7 +931,7 @@ function InquiryProcessPage({ onBack, navigateTo }) {
         </div>
       </section>
 
-      {/* Rich Footer Matching Screenshot 1 */}
+      {/* Rich Footer */}
       <FooterNav navigateTo={navigateTo} />
     </main>
   )
