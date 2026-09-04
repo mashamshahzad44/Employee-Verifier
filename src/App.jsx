@@ -32,7 +32,8 @@ import {
   FileText,
   AlertCircle,
   Users,
-  Award
+  Award,
+  UserCheck
 } from 'lucide-react'
 import './App.css'
 
@@ -204,14 +205,36 @@ function App() {
           </div>
           <h1>Know who<br /><em>you’re trusting</em></h1>
           <p className="hero-intro">
-            The smarter way to verify people, protect your business reputation, and make decisions with total confidence.
+            Instant background, identity, and employment checks for employees, tenants, and business partners.
           </p>
+          
+          {/* 4 Feature Badges / Pills */}
+          <div className="hero-badges">
+            <span className="hero-badge-pill">
+              <Fingerprint size={15} /> Identity Check
+            </span>
+            <span className="hero-badge-pill">
+              <BriefcaseBusiness size={15} /> Employment History
+            </span>
+            <span className="hero-badge-pill">
+              <Gavel size={15} /> Criminal Record Check
+            </span>
+            <span className="hero-badge-pill">
+              <BadgeCheck size={15} /> Reference Verification
+            </span>
+          </div>
+
           <div className="hero-actions">
             <a className="button button-teal" href="#search">
               Verify a person <ArrowUpRight size={17} />
             </a>
+            {/* Social Proof Line */}
+            <div className="hero-social-proof">
+              <Award size={16} /> Trusted by <strong>500+ companies</strong> across the UK
+            </div>
           </div>
         </div>
+
         <div className="hero-visual" aria-label="Verification status illustration">
           <div className="orbit orbit-one"></div>
           <div className="orbit orbit-two"></div>
@@ -235,6 +258,69 @@ function App() {
           </div>
           <div className="floating-tag tag-two">
             <span>+1,240</span> checks this month
+          </div>
+        </div>
+      </section>
+
+      {/* "Who is this for?" Section */}
+      <section className="who-is-this-for shell">
+        <div className="section-kicker">Tailored Screening Solutions</div>
+        <div className="section-title">
+          <h2>Who is this for</h2>
+          <p>Clear, actionable background signals for every hiring and decision scenario.</p>
+        </div>
+        <div className="who-grid">
+          <div className="who-card">
+            <div className="who-icon"><Users size={26} /></div>
+            <h3>For Employers</h3>
+            <span className="who-tagline">Hire with confidence</span>
+            <p>Verify candidate employment history, job duration, and supervisory references before making an offer.</p>
+          </div>
+          <div className="who-card">
+            <div className="who-icon"><Home size={26} /></div>
+            <h3>For Landlords</h3>
+            <span className="who-tagline">Verify tenants before you rent</span>
+            <p>Screen prospective domestic staff and tenants for identity authentication and public signals.</p>
+          </div>
+          <div className="who-card">
+            <div className="who-icon"><Building2 size={26} /></div>
+            <h3>For Businesses</h3>
+            <span className="who-tagline">Vet partners and vendors</span>
+            <p>Audit corporate track records, partner credentials, and service vendors to protect reputation.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* "How it works" 3-Step Horizontal Strip */}
+      <section className="how-it-works-strip shell" id="how-it-works">
+        <div className="section-kicker">Simple 3-Step Process</div>
+        <div className="section-title">
+          <h2>How it works</h2>
+          <p>Move from a basic search to a verified trust report in three clear steps.</p>
+        </div>
+        <div className="steps-horizontal">
+          <div className="step-item">
+            <div className="step-circle">1</div>
+            <div className="step-content">
+              <h3>Submit details</h3>
+              <p>Enter the 13-digit CNIC, full name, or candidate verification request details.</p>
+            </div>
+          </div>
+          <div className="step-connector"></div>
+          <div className="step-item">
+            <div className="step-circle">2</div>
+            <div className="step-content">
+              <h3>We verify</h3>
+              <p>Our platform audits databases, employment tenure, and legal record signals.</p>
+            </div>
+          </div>
+          <div className="step-connector"></div>
+          <div className="step-item">
+            <div className="step-circle">3</div>
+            <div className="step-content">
+              <h3>Get your trust report</h3>
+              <p>Receive an encrypted, verified trust signal score with detailed background insights.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -291,35 +377,6 @@ function App() {
               Register Complaint <ArrowUpRight size={16} />
             </a>
           </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="steps shell" id="how-it-works">
-        <div className="section-kicker">A Clear Process</div>
-        <div className="section-title">
-          <h2>How it works</h2>
-          <p>Move from a basic identity search to the right next action in three clear steps.</p>
-        </div>
-        <div className="step-grid">
-          <article>
-            <div className="step-badge">1</div>
-            <Fingerprint size={28} />
-            <h3>Search by CNIC</h3>
-            <p>Enter the 13-digit CNIC to look up verified background records instantly.</p>
-          </article>
-          <article>
-            <div className="step-badge">2</div>
-            <FileCheck2 size={28} />
-            <h3>Review Information</h3>
-            <p>Read available history, past complaints, and workplace conduct ratings.</p>
-          </article>
-          <article>
-            <div className="step-badge">3</div>
-            <Gavel size={28} />
-            <h3>Choose Next Step</h3>
-            <p>Continue with a detailed inquiry, file feedback, or request legal support.</p>
-          </article>
         </div>
       </section>
 
