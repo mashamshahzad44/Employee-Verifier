@@ -30,7 +30,9 @@ import {
   X,
   Lock,
   FileText,
-  AlertCircle
+  AlertCircle,
+  Users,
+  Award
 } from 'lucide-react'
 import './App.css'
 
@@ -105,7 +107,7 @@ function App() {
       <nav className="nav shell">
         <a className="brand" href="#top" aria-label="Employee Verifier home">
           <span className="brand-mark">
-            <ShieldCheck size={22} strokeWidth={2.5} />
+            <ShieldCheck size={24} strokeWidth={2.5} />
             <Fingerprint size={16} className="brand-fingerprint" />
           </span>
           <span className="brand-text">
@@ -113,14 +115,14 @@ function App() {
           </span>
         </a>
 
-        {/* Desktop Navigation Links */}
+        {/* Exact Desktop Navigation Links matching the red screenshot */}
         <div className="nav-links desktop-only">
           <a href="#top">Home</a>
-          <a href="#search">Record Search</a>
+          <a href="#how-it-works">How it works</a>
           <a href="#services">Services</a>
-          <a href="#what-we-check">What We Check</a>
           <a href="#complaints">Complaints</a>
           <a href="#legal-team">Legal Team</a>
+          <a href="#about">About</a>
           <a href="#faq">FAQ</a>
           <a href="#support">Contact</a>
         </div>
@@ -162,26 +164,26 @@ function App() {
           <a href="#top" onClick={() => setMenuOpen(false)}>
             <Home size={19} /> Home <ArrowUpRight size={16} />
           </a>
-          <a href="#search" onClick={() => setMenuOpen(false)}>
-            <Search size={19} /> Record Search <ArrowUpRight size={16} />
+          <a href="#how-it-works" onClick={() => setMenuOpen(false)}>
+            <FileCheck2 size={19} /> How it works <ArrowUpRight size={16} />
           </a>
           <a href="#services" onClick={() => setMenuOpen(false)}>
             <BriefcaseBusiness size={19} /> Services <ArrowUpRight size={16} />
           </a>
-          <a href="#what-we-check" onClick={() => setMenuOpen(false)}>
-            <BadgeCheck size={19} /> What We Check <ArrowUpRight size={16} />
-          </a>
           <a href="#complaints" onClick={() => setMenuOpen(false)}>
-            <FileWarning size={19} /> Register Complaint <ArrowUpRight size={16} />
+            <FileWarning size={19} /> Complaints <ArrowUpRight size={16} />
           </a>
           <a href="#legal-team" onClick={() => setMenuOpen(false)}>
             <Scale size={19} /> Legal Team <ArrowUpRight size={16} />
           </a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>
+            <Users size={19} /> About <ArrowUpRight size={16} />
+          </a>
           <a href="#faq" onClick={() => setMenuOpen(false)}>
-            <HelpCircle size={19} /> FAQ &amp; Help <ArrowUpRight size={16} />
+            <HelpCircle size={19} /> FAQ <ArrowUpRight size={16} />
           </a>
           <a href="#support" onClick={() => setMenuOpen(false)}>
-            <MessageCircle size={19} /> Contact Support <ArrowUpRight size={16} />
+            <MessageCircle size={19} /> Contact <ArrowUpRight size={16} />
           </a>
           <div className="drawer-actions">
             <a className="button button-teal drawer-cta" href="#search" onClick={() => setMenuOpen(false)}>
@@ -239,7 +241,7 @@ function App() {
 
       {/* Prominent CNIC Search Panel & Quick Actions */}
       <section className="search-panel shell" id="search">
-        <div className="section-kicker">01 / Record Lookup</div>
+        <div className="section-kicker">Record Lookup</div>
         <div className="search-heading">
           <h2>Check Records<br /><span>Verify People</span></h2>
           <p>Know Before You Decide. Look beyond a name and find the verified history behind it.</p>
@@ -292,37 +294,62 @@ function App() {
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <section className="steps shell" id="how-it-works">
+        <div className="section-kicker">A Clear Process</div>
+        <div className="section-title">
+          <h2>How it works</h2>
+          <p>Move from a basic identity search to the right next action in three clear steps.</p>
+        </div>
+        <div className="step-grid">
+          <article>
+            <div className="step-badge">1</div>
+            <Fingerprint size={28} />
+            <h3>Search by CNIC</h3>
+            <p>Enter the 13-digit CNIC to look up verified background records instantly.</p>
+          </article>
+          <article>
+            <div className="step-badge">2</div>
+            <FileCheck2 size={28} />
+            <h3>Review Information</h3>
+            <p>Read available history, past complaints, and workplace conduct ratings.</p>
+          </article>
+          <article>
+            <div className="step-badge">3</div>
+            <Gavel size={28} />
+            <h3>Choose Next Step</h3>
+            <p>Continue with a detailed inquiry, file feedback, or request legal support.</p>
+          </article>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section className="services shell" id="services">
-        <div className="section-kicker">02 / What We Offer</div>
+        <div className="section-kicker">Services &amp; Solutions</div>
         <div className="services-head">
           <h2>Check the details<br /><em>that matter</em></h2>
           <Sparkles size={32} />
         </div>
         <div className="service-list">
           <a href="#search">
-            <span>01</span>
             <IdCard className="service-icon" size={23} />
             <strong>Employee Verification</strong>
             <small>Background history, work duration & employment records</small>
             <ArrowUpRight />
           </a>
           <a href="#search">
-            <span>02</span>
             <Home className="service-icon" size={23} />
             <strong>Domestic Staff Checks</strong>
             <small>Confidence and safety for home drivers, maids, and guards</small>
             <ArrowUpRight />
           </a>
           <a href="#search">
-            <span>03</span>
             <Building2 className="service-icon" size={23} />
             <strong>Company Reviews</strong>
             <small>Workplace conduct ratings, corporate track record & reviews</small>
             <ArrowUpRight />
           </a>
           <a href="#search">
-            <span>04</span>
             <Gavel className="service-icon" size={23} />
             <strong>Legal & Criminal Clearance</strong>
             <small>Public record signals, police verification & court checks</small>
@@ -331,44 +358,35 @@ function App() {
         </div>
       </section>
 
-      {/* What We Check Section */}
-      <section className="what-we-check shell" id="what-we-check">
-        <div className="section-kicker">03 / Comprehensive Coverage</div>
+      {/* About Section */}
+      <section className="about-section shell" id="about">
+        <div className="section-kicker">About Employee Verifier</div>
         <div className="section-title">
-          <h2>Verification<br /><em>Redefined</em></h2>
-          <p>Every check is processed through multi-layered data verification protocols.</p>
+          <h2>Empowering Trust Through<br /><em>Verified Data</em></h2>
+          <p>We build transparent identity signals for employers, businesses, and households.</p>
         </div>
-        <div className="check-grid">
-          <div className="check-card">
-            <div className="check-number">01</div>
-            <Fingerprint size={30} />
-            <h3>Identity Authentication</h3>
-            <p>CNIC verification, legal name confirmation, and official database cross-checking.</p>
+        <div className="about-grid">
+          <div className="about-card">
+            <ShieldCheck size={32} />
+            <h3>Verified Standards</h3>
+            <p>Multi-source verification ensuring accurate public records and employment history.</p>
           </div>
-          <div className="check-card">
-            <div className="check-number">02</div>
-            <BriefcaseBusiness size={30} />
-            <h3>Work & Tenure Audit</h3>
-            <p>Direct employer contact, job title confirmation, and reason for departure verification.</p>
+          <div className="about-card">
+            <Lock size={32} />
+            <h3>Privacy First</h3>
+            <p>Strict confidentiality and secure data processing compliant with regulatory standards.</p>
           </div>
-          <div className="check-card">
-            <div className="check-number">03</div>
-            <ShieldCheck size={30} />
-            <h3>Police & Legal Signals</h3>
-            <p>Public criminal records, court case history, and misconduct reports.</p>
-          </div>
-          <div className="check-card">
-            <div className="check-number">04</div>
-            <BadgeCheck size={30} />
-            <h3>Credential & Reference</h3>
-            <p>Academic certificate validation and verified peer/supervisor reviews.</p>
+          <div className="about-card">
+            <Award size={32} />
+            <h3>Legal Advisory</h3>
+            <p>Dedicated legal team offering guidance on disputes, background checks, and compliance.</p>
           </div>
         </div>
       </section>
 
       {/* Complaint & Detailed Inquiry Submission Section */}
       <section className="complaint-section shell" id="complaints">
-        <div className="section-kicker">04 / Action Center</div>
+        <div className="section-kicker">Action Center</div>
         <div className="section-title">
           <h2>Submit an Inquiry<br /><em>or Complaint</em></h2>
           <p>We take accuracy and integrity seriously. Get official assistance from our team.</p>
@@ -424,7 +442,7 @@ function App() {
 
       {/* FAQ & Support Section */}
       <section className="faq-section shell" id="faq">
-        <div className="section-kicker">05 / Help &amp; FAQs</div>
+        <div className="section-kicker">Help &amp; FAQs</div>
         <div className="section-title">
           <h2>Frequently Asked<br /><em>Questions</em></h2>
           <p>Everything you need to know about Employee Verifier procedures.</p>
@@ -474,9 +492,10 @@ function App() {
         <div className="footer-explore">
           <strong>Explore</strong>
           <a href="#services">Services</a>
-          <a href="#what-we-check">What We Check</a>
+          <a href="#how-it-works">How it works</a>
           <a href="#complaints">Complaints</a>
           <a href="#legal-team">Legal Team</a>
+          <a href="#about">About</a>
           <a href="#faq">FAQ</a>
         </div>
         <div className="footer-bottom">
@@ -499,7 +518,7 @@ function App() {
   )
 }
 
-/* Restored Original Login / Sign Up Page */
+/* Centered & Attractive Sign In / Create Account Page */
 function AuthPage({ initialMode }) {
   const [authMode, setAuthMode] = useState(initialMode)
   const [showPassword, setShowPassword] = useState(false)
@@ -535,25 +554,35 @@ function AuthPage({ initialMode }) {
           <ArrowLeft size={19} /> Back to website
         </a>
       </header>
-      <section className={`auth-section shell ${authMode === 'signin' ? 'signin-layout' : 'register-layout'}`}>
-        <div className="auth-intro">
-          <div className="eyebrow"><span className="pulse"></span> Secure member access</div>
-          <h2>{authMode === 'signin' ? <>Welcome<br /><em>back</em></> : <>Start your<br /><em>verification</em></>}</h2>
-          <p>{authMode === 'signin' ? 'Sign in to access your Employee Verifier workspace.' : 'Create an account to manage checks and verification requests.'}</p>
-          <div className="auth-points">
-            <span><ShieldCheck size={17} /> Private by design</span>
-            <span><Check size={17} /> Verified workflows</span>
+      
+      {/* Centered Auth Container */}
+      <section className="auth-centered-wrapper">
+        <div className="auth-card-centered">
+          <div className="auth-header-brand">
+            <div className="auth-badge-icon">
+              <ShieldCheck size={28} />
+            </div>
+            <h2>EMPLOYEE<span className="brand-highlight">VERIFIER</span></h2>
+            <p>Member Access Portal</p>
           </div>
-        </div>
-        <div className="auth-card">
-          <div className="auth-tabs">
-            <button className={authMode === 'signin' ? 'active' : ''} type="button" onClick={() => switchMode('signin')}>
+
+          <div className="auth-tabs-pill">
+            <button
+              className={authMode === 'signin' ? 'active' : ''}
+              type="button"
+              onClick={() => switchMode('signin')}
+            >
               Sign in
             </button>
-            <button className={authMode === 'create' ? 'active' : ''} type="button" onClick={() => switchMode('create')}>
+            <button
+              className={authMode === 'create' ? 'active' : ''}
+              type="button"
+              onClick={() => switchMode('create')}
+            >
               Create account
             </button>
           </div>
+
           <form onSubmit={handleAuthSubmit}>
             {authMode === 'create' && (
               <label>
