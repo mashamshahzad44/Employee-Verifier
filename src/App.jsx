@@ -48,6 +48,7 @@ function App() {
   const [searched, setSearched] = useState(false)
   const [activeFaq, setActiveFaq] = useState(null)
   const [activeTab, setActiveTab] = useState('inquiry')
+  const [consultModalOpen, setConsultModalOpen] = useState(false)
   const [viewMode, setViewMode] = useState(() => {
     const path = window.location.pathname
     if (path === '/complaint' || path === '/home/Complaint') return 'complaint'
@@ -251,7 +252,7 @@ function App() {
           <div className="eyebrow">
             <span className="pulse"></span> Trusted Verification &amp; Records
           </div>
-          <h1>Know who<br /><em>you’re trusting</em></h1>
+          <h1>Know who<br />you're trusting</h1>
           <p className="hero-intro">
             Instant background, identity, and employment checks for employees, tenants, and business partners.
           </p>
@@ -474,9 +475,14 @@ function App() {
             <h3>Imran Rafiq Waseer</h3>
             <span className="lhb-title">Advocate High Court</span>
             <p>Criminal cases, FIA, NAB, Anti-Corruption, Cyber Crime, Customs, Anti-Terrorism and related High Court matters.</p>
-            <button className="button button-teal" onClick={() => navigateTo('legal', '/legal-team')}>
-              Consult the legal team <MessageCircle size={17} />
-            </button>
+            <div className="lhb-btn-row">
+              <button className="lhb-sm-btn lhb-btn-outline" onClick={() => navigateTo('legal', '/legal-team')}>
+                View Full Legal Team <ArrowRight size={15} />
+              </button>
+              <button className="lhb-sm-btn lhb-btn-teal" onClick={() => setConsultModalOpen(true)}>
+                <MessageCircle size={15} /> Consult Legal Team
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -485,7 +491,7 @@ function App() {
       <section className="about-section shell" id="about">
         <div className="section-kicker">About Employee Verifier</div>
         <div className="section-title">
-          <h2>Empowering Trust Through<br /><em>Verified Data</em></h2>
+          <h2>Empowering Trust Through<br />Verified Data</h2>
           <p>We build transparent identity signals for employers, businesses, and households.</p>
         </div>
         <div className="about-grid">
@@ -511,7 +517,7 @@ function App() {
       <section className="complaint-section shell" id="complaints">
         <div className="section-kicker">Action Center</div>
         <div className="section-title">
-          <h2>Submit an Inquiry<br /><em>or Complaint</em></h2>
+          <h2>Submit an Inquiry<br />or Complaint</h2>
           <p>We take accuracy and integrity seriously. Get official assistance from our team.</p>
         </div>
         <div className="action-box">
@@ -567,7 +573,7 @@ function App() {
       <section className="faq-section shell" id="faq">
         <div className="section-kicker">Help &amp; FAQs</div>
         <div className="section-title">
-          <h2>Frequently Asked<br /><em>Questions</em></h2>
+          <h2>Frequently Asked<br />Questions</h2>
           <p>Everything you need to know about Employee Verifier procedures.</p>
         </div>
         <div className="faq-list">
@@ -586,6 +592,9 @@ function App() {
       {/* Rich Unified Footer */}
       <FooterNav navigateTo={navigateTo} />
 
+      {/* Consult Legal Team Modal */}
+      {consultModalOpen && <ConsultModal onClose={() => setConsultModalOpen(false)} />}
+
       {/* Floating WhatsApp Button */}
       <a
         className="whatsapp-button"
@@ -600,8 +609,84 @@ function App() {
   )
 }
 
+/* Consult Legal Team Modal Form (dark theme) */
+function ConsultModal({ onClose }) {
+  const [sent, setSent] = useState(false)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setSent(true)
+  }
+  return (
+    <div className="consult-modal-overlay" onClick={onClose}>
+      <div className="consult-modal-box" onClick={(e) => e.stopPropagation()}>
+        <button className="consult-modal-close" onClick={onClose} aria-label="Close">
+          <X size={20} />
+        </button>
+        <div className="consult-modal-header">
+          <div className="consult-modal-icon"><Scale size={24} /></div>
+          <div>
+            <h2>Consult Legal Team</h2>
+            <p>How can we help?</p>
+          </div>
+        </div>
+        {sent ? (
+          <div className="consult-sent">
+            <Check size={32} />
+            <h3>Message Sent!</h3>
+            <p>Our legal team will contact you shortly.</p>
+            <button className="lhb-sm-btn lhb-btn-teal" style={{ marginTop: '16px' }} onClick={onClose}>Close</button>
+          </div>
+        ) : (
+          <form className="consult-form" onSubmit={handleSubmit}>
+            <div className="consult-form-row">
+              <label>
+                Full name <span className="req">*</span>
+                <input type="text" placeholder="Your full name" required />
+              </label>
+              <label>
+                Email address <span className="req">*</span>
+                <input type="email" placeholder="you@example.com" required />
+              </label>
+            </div>
+            <div className="consult-form-row">
+              <label>
+                Phone number
+                <input type="tel" placeholder="03001234567" />
+              </label>
+              <label>
+                Inquiry type
+                <select>
+                  <option value="">Select an inquiry type</option>
+                  <option>Criminal Case</option>
+                  <option>FIA / NAB Matter</option>
+                  <option>Anti-Corruption</option>
+                  <option>Cyber Crime</option>
+                  <option>Civil Case</option>
+                  <option>Corporate / Tax</option>
+                  <option>Banking Case</option>
+                  <option>Companies Law</option>
+                  <option>Other</option>
+                </select>
+              </label>
+            </div>
+            <label className="consult-full">
+              Message <span className="req">*</span>
+              <textarea rows="4" placeholder="Briefly describe your situation..." required></textarea>
+            </label>
+            <p className="consult-note">Please avoid including unnecessary CNIC or sensitive personal information in your first message.</p>
+            <button type="submit" className="lhb-sm-btn lhb-btn-teal consult-submit">
+              <Send size={16} /> Send message
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  )
+}
+
 /* Dedicated Legal Team Page View (Matching Uploaded Screenshots 2, 3, 4, 5) */
 function LegalTeamPage({ onBack, navigateTo }) {
+  const [consultOpen, setConsultOpen] = useState(false)
   return (
     <main className="process-page">
       {/* Top Helpline Header */}
@@ -668,9 +753,9 @@ function LegalTeamPage({ onBack, navigateTo }) {
             <h2>Imran Rafiq Waseer</h2>
             <span className="hlc-subtitle">Advocate High Court</span>
             <p>Criminal cases, FIA, NAB, Anti-Corruption, Cyber Crime, Customs, Anti-Terrorism and related High Court matters.</p>
-            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="hlc-consult-btn">
+            <button className="hlc-consult-btn" onClick={() => setConsultOpen(true)}>
               <MessageCircle size={16} /> Consult the legal team
-            </a>
+            </button>
           </div>
         </div>
 
@@ -682,9 +767,9 @@ function LegalTeamPage({ onBack, navigateTo }) {
             <h3>Muhammad Asgher Awan</h3>
             <span className="lp-role">Advocate High Court</span>
             <p>Anti-Terrorism, Anti-Narcotics &amp; Services Tribunal</p>
-            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="lp-btn">
+            <button className="lp-btn" onClick={() => setConsultOpen(true)}>
               <MessageCircle size={15} /> Consult Legal Team
-            </a>
+            </button>
           </div>
 
           <div className="lp-card">
@@ -693,9 +778,9 @@ function LegalTeamPage({ onBack, navigateTo }) {
             <h3>Rana Muhammad Saleem</h3>
             <span className="lp-role">Advocate High Court</span>
             <p>Civil Cases &amp; Corporate Tax</p>
-            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="lp-btn">
+            <button className="lp-btn" onClick={() => setConsultOpen(true)}>
               <MessageCircle size={15} /> Consult Legal Team
-            </a>
+            </button>
           </div>
 
           <div className="lp-card">
@@ -704,9 +789,9 @@ function LegalTeamPage({ onBack, navigateTo }) {
             <h3>Ch. Majid Saleem Kahloon</h3>
             <span className="lp-role">Advocate High Court</span>
             <p>Banking Cases</p>
-            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="lp-btn">
+            <button className="lp-btn" onClick={() => setConsultOpen(true)}>
               <MessageCircle size={15} /> Consult Legal Team
-            </a>
+            </button>
           </div>
 
           <div className="lp-card">
@@ -715,9 +800,9 @@ function LegalTeamPage({ onBack, navigateTo }) {
             <h3>Ch. Liaqat Ali Salehria</h3>
             <span className="lp-role">Advocate High Court</span>
             <p>Companies Law &amp; Registration Act</p>
-            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="lp-btn">
+            <button className="lp-btn" onClick={() => setConsultOpen(true)}>
               <MessageCircle size={15} /> Consult Legal Team
-            </a>
+            </button>
           </div>
         </div>
 
@@ -728,6 +813,14 @@ function LegalTeamPage({ onBack, navigateTo }) {
 
       {/* Rich Footer */}
       <FooterNav navigateTo={navigateTo} />
+
+      {/* Consult Modal */}
+      {consultOpen && <ConsultModal onClose={() => setConsultOpen(false)} />}
+
+      {/* Floating WhatsApp */}
+      <a className="whatsapp-button" href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+        <MessageCircle size={26} />
+      </a>
     </main>
   )
 }
@@ -923,7 +1016,7 @@ function ComplaintProcessPage({ onBack, navigateTo }) {
       {/* Complaint Process Banner */}
       <section className="process-hero shell">
         <div className="eyebrow"><span className="pulse"></span> COMPLAINTS &amp; FEEDBACK</div>
-        <h1>Put your experience<br /><em>on record</em></h1>
+        <h1>Put your experience<br />on record</h1>
         <p className="process-intro">
           Register positive or negative feedback about an individual or service provider you dealt with, in three clear steps.
         </p>
@@ -1037,7 +1130,7 @@ function InquiryProcessPage({ onBack, navigateTo }) {
       {/* Inquiry Process Banner */}
       <section className="process-hero shell">
         <div className="eyebrow"><span className="pulse"></span> NEED MORE DETAILS?</div>
-        <h1>Request a detailed<br /><em>verification inquiry</em></h1>
+        <h1>Request a detailed<br />verification inquiry</h1>
         <p className="process-intro">
           Ask our specialized team to audit background records, work history, and references in three clear steps.
         </p>
