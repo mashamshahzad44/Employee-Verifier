@@ -1146,9 +1146,17 @@ main {
 
 .services-head {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
   margin: 22px 0 44px;
+}
+
+.services-sub {
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 760px;
 }
 
 .service-list {
@@ -1375,6 +1383,366 @@ main {
   color: var(--text-muted);
   font-size: 15px;
   line-height: 1.65;
+}
+
+/* Process Intro Text (used on complaint/inquiry/legal hero) */
+.process-intro {
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1.65;
+  max-width: 680px;
+  margin-top: 10px;
+}
+
+/* Landing Page Legal Overview Strip */
+.legal-overview-section {
+  padding-top: 85px;
+  padding-bottom: 85px;
+  border-top: 1px solid var(--line-color);
+}
+
+.legal-highlight-box {
+  background: linear-gradient(135deg, #0d3965 0%, #071b42 100%);
+  border: 1px solid var(--teal-border);
+  border-radius: 20px;
+  padding: 44px 48px;
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 32px;
+}
+
+.legal-highlight-box::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal), #78d8e5);
+}
+
+.lhb-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.head-legal-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(9, 211, 170, 0.12);
+  border: 1px solid var(--teal-border);
+  border-radius: 6px;
+  padding: 4px 12px;
+  color: var(--teal);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.lhb-info h3 {
+  font: 600 clamp(28px, 3.5vw, 42px) / 1 'Playfair Display', serif;
+  color: var(--text-white);
+  letter-spacing: -1px;
+}
+
+.lhb-title {
+  color: var(--teal);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.lhb-info p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+/* Legal Team Dedicated Page Styles */
+.legal-team-section {
+  padding-top: 60px;
+  padding-bottom: 80px;
+  border-top: 1px solid var(--line-color);
+}
+
+/* Featured Head of Legal Team Card */
+.head-legal-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  background: linear-gradient(135deg, #0d3965 0%, #071b42 100%);
+  border: 1px solid var(--teal-border);
+  border-radius: 20px;
+  padding: 44px 48px;
+  position: relative;
+  overflow: hidden;
+  margin: 32px 0 40px;
+}
+
+.head-legal-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal), #78d8e5, var(--teal));
+}
+
+.hlc-avatar {
+  flex-shrink: 0;
+  width: 90px;
+  height: 90px;
+  background: var(--teal);
+  color: var(--text-dark);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgba(9, 211, 170, 0.35);
+}
+
+.hlc-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hlc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(9, 211, 170, 0.12);
+  border: 1px solid var(--teal-border);
+  border-radius: 6px;
+  padding: 4px 12px;
+  color: var(--teal);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.hlc-details h2 {
+  font: 600 clamp(28px, 3.5vw, 42px) / 1 'Playfair Display', serif;
+  color: var(--text-white);
+  letter-spacing: -1px;
+}
+
+.hlc-subtitle {
+  color: var(--teal);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.hlc-details p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+.hlc-consult-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--teal);
+  color: var(--text-dark);
+  padding: 13px 24px;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  width: fit-content;
+  margin-top: 6px;
+  box-shadow: 0 6px 18px rgba(9, 211, 170, 0.28);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.hlc-consult-btn:hover {
+  background: var(--teal-hover);
+  transform: translateY(-2px);
+}
+
+/* Legal Panel 4-Card Grid */
+.legal-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.lp-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line-color);
+  border-radius: 18px;
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.lp-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--teal-border);
+}
+
+.lp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--teal);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.lp-avatar {
+  width: 64px;
+  height: 64px;
+  background: var(--teal-light);
+  color: var(--teal);
+  border: 1px solid var(--teal-border);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-top: 4px;
+}
+
+.lp-card h3 {
+  font: 600 20px 'Playfair Display', serif;
+  color: var(--text-white);
+}
+
+.lp-role {
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lp-card p {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal);
+  color: var(--text-dark);
+  padding: 11px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  margin-top: auto;
+  transition: background 0.2s ease, transform 0.2s ease;
+  width: fit-content;
+}
+
+.lp-btn:hover {
+  background: var(--teal-hover);
+  transform: translateY(-2px);
+}
+
+.legal-footnote {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 40px;
+  padding: 22px 28px;
+  background: rgba(9, 211, 170, 0.05);
+  border: 1px solid var(--teal-border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* Complaint Page — Layout helpers */
+.process-steps-section {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-top: 1px solid var(--line-color);
+}
+
+.process-action-section {
+  padding-top: 50px;
+  padding-bottom: 85px;
+}
+
+/* Complaint Page — Bottom CTA Banner */
+.process-bottom-banner {
+  margin-top: 40px;
+  background: linear-gradient(135deg, #0d3965 0%, #071b42 100%);
+  border: 1px solid var(--teal-border);
+  border-radius: 20px;
+  padding: 44px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.process-bottom-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), #78d8e5, var(--teal));
+}
+
+.process-bottom-banner h2 {
+  font: 600 clamp(24px, 3vw, 36px) / 1.1 'Playfair Display', serif;
+  color: var(--text-white);
+  margin-top: 8px;
+}
+
+.pbb-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+/* Responsive — Legal Team & Process Banners */
+@media (max-width: 1200px) {
+  .legal-panel-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .head-legal-card,
+  .legal-highlight-box {
+    flex-direction: column;
+    padding: 30px 24px;
+  }
+
+  .legal-panel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-bottom-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 24px;
+  }
+
+  .pbb-actions {
+    width: 100%;
+  }
 }
 
 /* Closing Section */

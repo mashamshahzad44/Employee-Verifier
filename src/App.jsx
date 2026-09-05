@@ -37,7 +37,8 @@ import {
   MessageSquare,
   ArrowRight,
   UserCheck,
-  Heart
+  Heart,
+  UserPlus
 } from 'lucide-react'
 import './App.css'
 
@@ -52,6 +53,7 @@ function App() {
     if (path === '/complaint' || path === '/home/Complaint') return 'complaint'
     if (path === '/inquiry' || path === '/home/HowItWorks') return 'inquiry'
     if (path === '/services' || path === '/home/Services') return 'services'
+    if (path === '/legal-team' || path === '/home/LegalTeam') return 'legal'
     return 'home'
   })
 
@@ -61,6 +63,7 @@ function App() {
       if (path === '/complaint' || path === '/home/Complaint') setViewMode('complaint')
       else if (path === '/inquiry' || path === '/home/HowItWorks') setViewMode('inquiry')
       else if (path === '/services' || path === '/home/Services') setViewMode('services')
+      else if (path === '/legal-team' || path === '/home/LegalTeam') setViewMode('legal')
       else setViewMode('home')
     }
     window.addEventListener('popstate', handlePopState)
@@ -87,6 +90,10 @@ function App() {
 
   if (viewMode === 'services') {
     return <ServicesPage onBack={() => navigateTo('home', '/')} navigateTo={navigateTo} />
+  }
+
+  if (viewMode === 'legal') {
+    return <LegalTeamPage onBack={() => navigateTo('home', '/')} navigateTo={navigateTo} />
   }
 
   const handleSearch = (event) => {
@@ -134,7 +141,7 @@ function App() {
           </div>
           <div className="top-bar-right">
             <a href="#support" className="top-link">Contact us</a>
-            <a href="#legal-team" className="top-link">Legal support</a>
+            <a href="/legal-team" onClick={(e) => { e.preventDefault(); navigateTo('legal', '/legal-team'); }} className="top-link">Legal support</a>
             <a href="/auth/login" className="top-login-btn">
               <UserRound size={15} /> Login
             </a>
@@ -163,7 +170,7 @@ function App() {
           <a href="#how-it-works">How it works</a>
           <a href="#services">Services</a>
           <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }}>Complaints</a>
-          <a href="#legal-team">Legal Team</a>
+          <a href="/legal-team" onClick={(e) => { e.preventDefault(); navigateTo('legal', '/legal-team'); }}>Legal Team</a>
           <a href="#about">About</a>
           <a href="#faq">FAQ</a>
           <a href="#support">Contact</a>
@@ -215,7 +222,7 @@ function App() {
           <a href="/complaint" onClick={() => { setMenuOpen(false); navigateTo('complaint', '/complaint'); }}>
             <FileWarning size={19} /> Complaints <ArrowUpRight size={16} />
           </a>
-          <a href="#legal-team" onClick={() => setMenuOpen(false)}>
+          <a href="/legal-team" onClick={() => { setMenuOpen(false); navigateTo('legal', '/legal-team'); }}>
             <Scale size={19} /> Legal Team <ArrowUpRight size={16} />
           </a>
           <a href="#about" onClick={() => setMenuOpen(false)}>
@@ -386,7 +393,7 @@ function App() {
         </div>
       </section>
 
-      {/* Our Services Section (Creative 8 Service Cards Grid directly on Landing Page) */}
+      {/* Our Services Section (Subtext placed BELOW heading as requested) */}
       <section className="services shell" id="services">
         <div className="section-kicker">WHAT WE OFFER</div>
         <div className="services-head">
@@ -449,7 +456,27 @@ function App() {
             <div className="cs-icon-box"><Scale size={28} /></div>
             <h3>Legal Team Support</h3>
             <p>Connect with experienced legal professionals for guidance.</p>
-            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Get legal support <ArrowRight size={15} /></a>
+            <a href="/legal-team" onClick={(e) => { e.preventDefault(); navigateTo('legal', '/legal-team'); }} className="cs-link">Get legal support <ArrowRight size={15} /></a>
+          </div>
+        </div>
+      </section>
+
+      {/* Legal Team Overview Section on Landing Page */}
+      <section className="legal-overview-section shell" id="legal-team">
+        <div className="section-kicker">PROFESSIONAL LEGAL SUPPORT</div>
+        <div className="section-title">
+          <h2>Our Legal Team</h2>
+          <p>A panel of advocates practising at the High Court — focused experience across criminal, civil, corporate and regulatory matters.</p>
+        </div>
+        <div className="legal-highlight-box">
+          <div className="lhb-info">
+            <span className="head-legal-tag"><Scale size={16} /> HEAD OF LEGAL TEAM</span>
+            <h3>Imran Rafiq Waseer</h3>
+            <span className="lhb-title">Advocate High Court</span>
+            <p>Criminal cases, FIA, NAB, Anti-Corruption, Cyber Crime, Customs, Anti-Terrorism and related High Court matters.</p>
+            <button className="button button-teal" onClick={() => navigateTo('legal', '/legal-team')}>
+              Consult the legal team <MessageCircle size={17} />
+            </button>
           </div>
         </div>
       </section>
@@ -573,6 +600,138 @@ function App() {
   )
 }
 
+/* Dedicated Legal Team Page View (Matching Uploaded Screenshots 2, 3, 4, 5) */
+function LegalTeamPage({ onBack, navigateTo }) {
+  return (
+    <main className="process-page">
+      {/* Top Helpline Header */}
+      <div className="top-bar">
+        <div className="shell top-bar-content">
+          <div className="helpline-info">
+            <span className="helpline-label">HELPLINE — MON TO SAT, 9AM-6PM</span>
+            <a href="tel:+447777793786" className="helpline-item">
+              <Phone size={14} /> +44 7777 793786
+            </a>
+            <a href="mailto:info@employeeverifier.com" className="helpline-item">
+              <Mail size={14} /> info@employeeverifier.com
+            </a>
+          </div>
+          <div className="top-bar-right">
+            <a href="/" onClick={(e) => { e.preventDefault(); onBack(); }} className="top-link">Home</a>
+            <a href="/auth/login" className="top-login-btn">
+              <UserRound size={15} /> Login
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="nav shell">
+        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); onBack(); }}>
+          <span className="brand-mark"><ShieldCheck size={24} strokeWidth={2.5} /><Fingerprint size={16} className="brand-fingerprint" /></span>
+          <span className="brand-text">EMPLOYEE<span className="brand-highlight">VERIFIER</span></span>
+        </a>
+        <button className="back-link-btn" onClick={onBack}>
+          <ArrowLeft size={18} /> Back to main site
+        </button>
+      </nav>
+
+      {/* Legal Team Hero Banner */}
+      <section className="process-hero shell">
+        <div className="eyebrow"><span className="pulse"></span> PROFESSIONAL LEGAL SUPPORT</div>
+        <h1>Our Legal Team</h1>
+        <p className="process-intro">
+          A panel of advocates practising at the High Court — focused experience across criminal, civil, corporate and regulatory matters, ready when a record needs to be challenged or a dispute resolved.
+        </p>
+        <div className="hero-actions" style={{ marginTop: '24px' }}>
+          <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="button button-teal">
+            Consult the legal team <MessageCircle size={17} />
+          </a>
+        </div>
+      </section>
+
+      {/* Meet the Advocates Title */}
+      <section className="legal-team-section shell">
+        <div className="section-kicker">MEET THE ADVOCATES</div>
+        <div className="section-title">
+          <h2>Experienced counsel you can rely on</h2>
+          <p>Each advocate brings deep, focused expertise in their practice area. Share a brief summary of your matter and we'll connect you with the right person.</p>
+        </div>
+
+        {/* Head of Legal Team Featured Card */}
+        <div className="head-legal-card">
+          <div className="hlc-avatar">
+            <UserRound size={48} />
+          </div>
+          <div className="hlc-details">
+            <span className="hlc-badge"><Award size={14} /> HEAD OF LEGAL TEAM</span>
+            <h2>Imran Rafiq Waseer</h2>
+            <span className="hlc-subtitle">Advocate High Court</span>
+            <p>Criminal cases, FIA, NAB, Anti-Corruption, Cyber Crime, Customs, Anti-Terrorism and related High Court matters.</p>
+            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="hlc-consult-btn">
+              <MessageCircle size={16} /> Consult the legal team
+            </a>
+          </div>
+        </div>
+
+        {/* Legal Panel 4-Grid */}
+        <div className="legal-panel-grid">
+          <div className="lp-card">
+            <span className="lp-badge"><ShieldCheck size={14} /> LEGAL PANEL</span>
+            <div className="lp-avatar"><UserRound size={36} /></div>
+            <h3>Muhammad Asgher Awan</h3>
+            <span className="lp-role">Advocate High Court</span>
+            <p>Anti-Terrorism, Anti-Narcotics &amp; Services Tribunal</p>
+            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="lp-btn">
+              <MessageCircle size={15} /> Consult Legal Team
+            </a>
+          </div>
+
+          <div className="lp-card">
+            <span className="lp-badge"><ShieldCheck size={14} /> LEGAL PANEL</span>
+            <div className="lp-avatar"><UserRound size={36} /></div>
+            <h3>Rana Muhammad Saleem</h3>
+            <span className="lp-role">Advocate High Court</span>
+            <p>Civil Cases &amp; Corporate Tax</p>
+            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="lp-btn">
+              <MessageCircle size={15} /> Consult Legal Team
+            </a>
+          </div>
+
+          <div className="lp-card">
+            <span className="lp-badge"><ShieldCheck size={14} /> LEGAL PANEL</span>
+            <div className="lp-avatar"><UserRound size={36} /></div>
+            <h3>Ch. Majid Saleem Kahloon</h3>
+            <span className="lp-role">Advocate High Court</span>
+            <p>Banking Cases</p>
+            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="lp-btn">
+              <MessageCircle size={15} /> Consult Legal Team
+            </a>
+          </div>
+
+          <div className="lp-card">
+            <span className="lp-badge"><ShieldCheck size={14} /> LEGAL PANEL</span>
+            <div className="lp-avatar"><UserRound size={36} /></div>
+            <h3>Ch. Liaqat Ali Salehria</h3>
+            <span className="lp-role">Advocate High Court</span>
+            <p>Companies Law &amp; Registration Act</p>
+            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="lp-btn">
+              <MessageCircle size={15} /> Consult Legal Team
+            </a>
+          </div>
+        </div>
+
+        <p className="legal-footnote">
+          Advocates are engaged on a matter-by-matter basis. Share a brief summary of your situation and we will connect you with the panel member best placed to help.
+        </p>
+      </section>
+
+      {/* Rich Footer */}
+      <FooterNav navigateTo={navigateTo} />
+    </main>
+  )
+}
+
 /* Dedicated Services Page View */
 function ServicesPage({ onBack, navigateTo }) {
   return (
@@ -678,7 +837,7 @@ function ServicesPage({ onBack, navigateTo }) {
             <div className="cs-icon-box"><Scale size={28} /></div>
             <h3>Legal Team Support</h3>
             <p>Connect with experienced legal professionals for guidance.</p>
-            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Get legal support <ArrowRight size={15} /></a>
+            <a href="/legal-team" onClick={(e) => { e.preventDefault(); navigateTo('legal', '/legal-team'); }} className="cs-link">Get legal support <ArrowRight size={15} /></a>
           </div>
         </div>
       </section>
@@ -937,7 +1096,7 @@ function InquiryProcessPage({ onBack, navigateTo }) {
   )
 }
 
-/* Rich Unified Footer Component Matching Screenshot 1 */
+/* Rich Unified Footer Component */
 function FooterNav({ navigateTo }) {
   return (
     <footer className="footer-rich shell">
@@ -966,7 +1125,7 @@ function FooterNav({ navigateTo }) {
           <strong>Get support</strong>
           <a href="/complaint" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('complaint', '/complaint'); } }}>Register a complaint</a>
           <a href="/inquiry" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('inquiry', '/inquiry'); } }}>Request an inquiry</a>
-          <a href="#legal-team" onClick={(e) => { if (navigateTo) { navigateTo('home', '/#legal-team'); } }}>Legal support</a>
+          <a href="/legal-team" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('legal', '/legal-team'); } }}>Legal support</a>
         </div>
 
         <div className="footer-col">
