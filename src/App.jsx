@@ -11,7 +11,6 @@ import {
   Fingerprint,
   Gavel,
   Home,
-  Headphones,
   HelpCircle,
   IdCard,
   Mail,
@@ -29,7 +28,6 @@ import {
   Building2,
   X,
   Lock,
-  FileText,
   AlertCircle,
   Users,
   Award,
@@ -38,6 +36,7 @@ import {
   ArrowRight,
   UserCheck,
   Heart,
+  Clock3,
 } from 'lucide-react'
 import './App.css'
 import robotHero from './assets/robot-hero.png'
@@ -49,6 +48,7 @@ function App() {
   const [activeFaq, setActiveFaq] = useState(null)
   const [activeTab, setActiveTab] = useState('inquiry')
   const [consultModalOpen, setConsultModalOpen] = useState(false)
+  const [contactModalOpen, setContactModalOpen] = useState(false)
   const [viewMode, setViewMode] = useState(() => {
     const path = window.location.pathname
     if (path === '/complaint' || path === '/home/Complaint') return 'complaint'
@@ -141,7 +141,16 @@ function App() {
             </a>
           </div>
           <div className="top-bar-right">
-            <a href="#support" className="top-link">Contact us</a>
+            <a
+              href="#support"
+              className="top-link"
+              onClick={(event) => {
+                event.preventDefault()
+                setContactModalOpen(true)
+              }}
+            >
+              Contact us
+            </a>
             <a href="/legal-team" onClick={(e) => { e.preventDefault(); navigateTo('legal', '/legal-team'); }} className="top-link">Legal support</a>
             <a href="/auth/login" className="top-login-btn">
               <UserRound size={15} /> Login
@@ -176,7 +185,16 @@ function App() {
           <a href="/legal-team" onClick={(e) => { e.preventDefault(); navigateTo('legal', '/legal-team'); }}>Legal Team</a>
           <a href="#about">About</a>
           <a href="#faq">FAQ</a>
-          <a href="#support">Contact</a>
+          <a
+            href="#support"
+            onClick={(event) => {
+              event.preventDefault()
+              setMenuOpen(false)
+              setContactModalOpen(true)
+            }}
+          >
+            Contact
+          </a>
         </div>
 
         <div className="nav-tools">
@@ -234,7 +252,14 @@ function App() {
           <a href="#faq" onClick={() => setMenuOpen(false)}>
             <HelpCircle size={19} /> FAQ <ArrowUpRight size={16} />
           </a>
-          <a href="#support" onClick={() => setMenuOpen(false)}>
+          <a
+            href="#support"
+            onClick={(event) => {
+              event.preventDefault()
+              setMenuOpen(false)
+              setContactModalOpen(true)
+            }}
+          >
             <MessageCircle size={19} /> Contact <ArrowUpRight size={16} />
           </a>
           <div className="drawer-actions">
@@ -599,10 +624,11 @@ function App() {
       </section>
 
       {/* Rich Unified Footer */}
-      <FooterNav navigateTo={navigateTo} />
+      <FooterNav navigateTo={navigateTo} onContact={() => setContactModalOpen(true)} />
 
       {/* Consult Legal Team Modal */}
       {consultModalOpen && <ConsultModal onClose={() => setConsultModalOpen(false)} />}
+      {contactModalOpen && <ContactModal onClose={() => setContactModalOpen(false)} />}
 
       {/* Floating WhatsApp Button */}
       <a
@@ -689,6 +715,88 @@ function ConsultModal({ onClose }) {
               <Send size={16} /> Send message
             </button>
           </form>
+        )}
+      </div>
+    </div>
+  )
+}
+
+/* Contact form opened from the utility header and main navigation. */
+function ContactModal({ onClose }) {
+  const [sent, setSent] = useState(false)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setSent(true)
+  }
+
+  return (
+    <div className="contact-modal-overlay" onClick={onClose}>
+      <div
+        className="contact-modal-box"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-modal-title"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button className="contact-modal-close" onClick={onClose} aria-label="Close contact form">
+          <X size={20} />
+        </button>
+        {sent ? (
+          <div className="contact-sent">
+            <div className="contact-sent-icon"><Check size={28} /></div>
+            <span className="section-kicker">MESSAGE RECEIVED</span>
+            <h2>Thanks for reaching out.</h2>
+            <p>Our team will review your message and get back to you shortly.</p>
+            <button className="button button-teal" onClick={onClose}>Close</button>
+          </div>
+        ) : (
+          <>
+            <div className="contact-modal-heading">
+              <span className="section-kicker">CONTACT SUPPORT</span>
+              <h2 id="contact-modal-title">How can we help?</h2>
+              <p>Ask about a record search, complaint, detailed inquiry, or legal support.</p>
+            </div>
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <div className="contact-form-row">
+                <label>
+                  Full name <span className="req">*</span>
+                  <input type="text" placeholder="Your full name" required />
+                </label>
+                <label>
+                  Email address <span className="req">*</span>
+                  <input type="email" placeholder="you@example.com" required />
+                </label>
+              </div>
+              <div className="contact-form-row">
+                <label>
+                  Phone number
+                  <input type="tel" placeholder="+44 7777 793786" />
+                </label>
+                <label>
+                  Inquiry type
+                  <select defaultValue="">
+                    <option value="">Select an inquiry type</option>
+                    <option>Record search</option>
+                    <option>Detailed verification</option>
+                    <option>Complaint or feedback</option>
+                    <option>Legal support</option>
+                    <option>General question</option>
+                  </select>
+                </label>
+              </div>
+              <label className="contact-form-full">
+                Message <span className="req">*</span>
+                <textarea rows="5" placeholder="Tell us how we can help..." required></textarea>
+              </label>
+              <p className="contact-form-note">
+                Please avoid including unnecessary CNIC or sensitive personal information in your first message.
+              </p>
+              <button type="submit" className="button button-teal contact-submit">
+                Send message <Send size={16} />
+              </button>
+            </form>
+          </>
         )}
       </div>
     </div>
@@ -1200,55 +1308,41 @@ function InquiryProcessPage({ onBack, navigateTo }) {
 }
 
 /* Rich Unified Footer Component */
-function FooterNav({ navigateTo }) {
+function FooterNav({ onContact }) {
   return (
     <footer className="footer-rich shell">
-      <div className="footer-top-banner">
-        <h2>Need verification or legal support? <a href="tel:+447777793786" className="footer-phone-highlight">+44 7777 793786</a></h2>
-      </div>
-
-      <div className="footer-grid">
-        <div className="footer-col-brand">
-          <span className="footer-kicker">VERIFY BEFORE YOU DECIDE</span>
-          <p className="footer-desc">Records, reputation and verification in one trusted place.</p>
-          <a href="#search" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('home', '/#search'); } }} className="footer-arrow-link">
-            Search a record <ArrowRight size={15} />
+      <div className="footer-grid footer-design-grid">
+        <div className="footer-contact-block">
+          <span className="footer-kicker">GET IN TOUCH</span>
+          <a href="mailto:info@employeeverifier.com" className="footer-contact-item">
+            <Mail size={17} /> info@employeeverifier.com
           </a>
-        </div>
-
-        <div className="footer-col">
-          <strong>Explore</strong>
-          <a href="/" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('home', '/'); } }}>Home</a>
-          <a href="#how-it-works" onClick={(e) => { if (navigateTo) { navigateTo('home', '/#how-it-works'); } }}>How it works</a>
-          <a href="/services" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('services', '/services'); } }}>Services</a>
-          <a href="#search" onClick={(e) => { if (navigateTo) { navigateTo('home', '/#search'); } }}>Search records</a>
-        </div>
-
-        <div className="footer-col">
-          <strong>Get support</strong>
-          <a href="/complaint" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('complaint', '/complaint'); } }}>Register a complaint</a>
-          <a href="/inquiry" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('inquiry', '/inquiry'); } }}>Request an inquiry</a>
-          <a href="/legal-team" onClick={(e) => { if (navigateTo) { e.preventDefault(); navigateTo('legal', '/legal-team'); } }}>Legal support</a>
-        </div>
-
-        <div className="footer-col">
-          <strong>Connect with us</strong>
-          <a href="mailto:info@employeeverifier.com" className="footer-email-link">
-            <Mail size={15} /> info@employeeverifier.com
+          <a href="tel:+447777793786" className="footer-contact-item">
+            <Phone size={17} /> +44 7777 793786
           </a>
-          <div className="footer-social-row">
-            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="fs-btn">
-              <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.66 4.77 1.8 6.77L2 30l7.44-1.78A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.2a11.17 11.17 0 0 1-5.7-1.56l-.41-.24-4.42 1.06 1.1-4.3-.27-.44A11.17 11.17 0 0 1 4.8 16C4.8 9.82 9.82 4.8 16 4.8S27.2 9.82 27.2 16 22.18 27.2 16 27.2zm6.13-8.3c-.33-.17-1.97-.97-2.28-1.08-.3-.11-.52-.17-.74.17-.22.33-.86 1.08-1.05 1.3-.19.22-.39.25-.72.08-.33-.17-1.4-.52-2.67-1.65-.99-.88-1.65-1.97-1.85-2.3-.19-.33-.02-.51.14-.67.15-.15.33-.39.5-.58.17-.19.22-.33.33-.55.11-.22.06-.41-.03-.58-.08-.17-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.58.08-.88.41-.3.33-1.16 1.13-1.16 2.76s1.19 3.2 1.35 3.42c.17.22 2.34 3.57 5.67 5.01.79.34 1.41.55 1.89.7.79.25 1.51.21 2.08.13.63-.09 1.97-.81 2.25-1.58.28-.77.28-1.43.19-1.57-.08-.14-.3-.22-.63-.39z"/>
-              </svg>
-            </a>
-            <a href="mailto:info@employeeverifier.com" aria-label="Email" className="fs-btn">
-              <Mail size={16} />
-            </a>
-            <a href="#top" aria-label="Security" className="fs-btn">
-              <ShieldCheck size={16} />
-            </a>
+          <span className="footer-contact-item">
+            <Clock3 size={17} /> Mon to Sat, 9AM–6PM
+          </span>
+        </div>
+
+        <div className="footer-social-block">
+          <div className="footer-social-row footer-design-socials">
+            <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="fs-btn">Wa</a>
+            <a href="mailto:info@employeeverifier.com" aria-label="Email" className="fs-btn">Em</a>
+            <a href="#top" aria-label="Employee Verifier home" className="fs-btn">Ev</a>
+            <a href="#support" aria-label="Contact support" className="fs-btn" onClick={(event) => {
+              if (onContact) {
+                event.preventDefault()
+                onContact()
+              }
+            }}>?</a>
           </div>
+          <p className="footer-desc">Verified identity, employment, and background checks for better decisions.</p>
+        </div>
+
+        <div className="footer-newsletter-block">
+          <span className="footer-kicker">JOIN A NEWSLETTER</span>
+          <NewsletterForm />
         </div>
       </div>
 
@@ -1256,7 +1350,12 @@ function FooterNav({ navigateTo }) {
         <div className="footer-legal-links">
           <a href="#about">About</a>
           <a href="#faq">FAQ</a>
-          <a href="#support">Contact</a>
+          <a href="#support" onClick={(event) => {
+            if (onContact) {
+              event.preventDefault()
+              onContact()
+            }
+          }}>Contact</a>
           <a href="#privacy">Privacy</a>
           <a href="#terms">Terms</a>
           <a href="#disclaimer">Disclaimer</a>
@@ -1266,6 +1365,36 @@ function FooterNav({ navigateTo }) {
         </div>
       </div>
     </footer>
+  )
+}
+
+function NewsletterForm() {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    if (!email.trim()) return
+    setSubscribed(true)
+  }
+
+  return subscribed ? (
+    <p className="newsletter-success"><Check size={15} /> You're on the list.</p>
+  ) : (
+    <form className="newsletter-form" onSubmit={handleSubmit}>
+      <label htmlFor="newsletter-email">Your Email</label>
+      <div className="newsletter-input-row">
+        <input
+          id="newsletter-email"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="Enter your email"
+          required
+        />
+        <button type="submit">Subscribe</button>
+      </div>
+    </form>
   )
 }
 
