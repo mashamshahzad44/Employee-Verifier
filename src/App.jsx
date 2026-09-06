@@ -38,9 +38,9 @@ import {
   ArrowRight,
   UserCheck,
   Heart,
-  UserPlus
 } from 'lucide-react'
 import './App.css'
+import robotHero from './assets/robot-hero.png'
 
 function App() {
   const [query, setQuery] = useState('')
@@ -147,7 +147,9 @@ function App() {
               <UserRound size={15} /> Login
             </a>
             <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" className="top-wa-btn" aria-label="Contact on WhatsApp">
-              <MessageCircle size={18} />
+              <svg viewBox="0 0 32 32" width="17" height="17" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.66 4.77 1.8 6.77L2 30l7.44-1.78A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.2a11.17 11.17 0 0 1-5.7-1.56l-.41-.24-4.42 1.06 1.1-4.3-.27-.44A11.17 11.17 0 0 1 4.8 16C4.8 9.82 9.82 4.8 16 4.8S27.2 9.82 27.2 16 22.18 27.2 16 27.2zm6.13-8.3c-.33-.17-1.97-.97-2.28-1.08-.3-.11-.52-.17-.74.17-.22.33-.86 1.08-1.05 1.3-.19.22-.39.25-.72.08-.33-.17-1.4-.52-2.67-1.65-.99-.88-1.65-1.97-1.85-2.3-.19-.33-.02-.51.14-.67.15-.15.33-.39.5-.58.17-.19.22-.33.33-.55.11-.22.06-.41-.03-.58-.08-.17-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.58.08-.88.41-.3.33-1.16 1.13-1.16 2.76s1.19 3.2 1.35 3.42c.17.22 2.34 3.57 5.67 5.01.79.34 1.41.55 1.89.7.79.25 1.51.21 2.08.13.63-.09 1.97-.81 2.25-1.58.28-.77.28-1.43.19-1.57-.08-.14-.3-.22-.63-.39z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -252,7 +254,7 @@ function App() {
           <div className="eyebrow">
             <span className="pulse"></span> Trusted Verification &amp; Records
           </div>
-          <h1>Know who<br />you're trusting</h1>
+          <h1>Know who<br /><em>you're trusting</em></h1>
           <p className="hero-intro">
             Instant background, identity, and employment checks for employees, tenants, and business partners.
           </p>
@@ -284,30 +286,12 @@ function App() {
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="Verification status illustration">
-          <div className="orbit orbit-one"></div>
-          <div className="orbit orbit-two"></div>
-          <div className="signal-card">
-            <div className="signal-top">
-              <span>VERIFICATION SIGNAL</span>
-              <span className="live-dot">LIVE</span>
-            </div>
-            <div className="signal-score">
-              <strong>94</strong>
-              <span>/ 100<br /><small>TRUST INDEX</small></span>
-            </div>
-            <div className="signal-line"><span style={{ width: '94%' }}></span></div>
-            <div className="signal-meta">
-              <span className="verified-seal"><Check size={14} /> Identity matched</span>
-              <span>Updated now</span>
-            </div>
-          </div>
-          <div className="floating-tag tag-one">
-            <ShieldCheck size={17} /> Verified record
-          </div>
-          <div className="floating-tag tag-two">
-            <span>+1,240</span> checks this month
-          </div>
+        <div className="hero-visual" aria-label="Verification robot illustration">
+          <img
+            src={robotHero}
+            alt="Verification robot"
+            className="hero-robot-img"
+          />
         </div>
       </section>
 
@@ -460,16 +444,29 @@ function App() {
 
           <div className="cs-card">
             <div className="cs-icon-box"><FileCheck2 size={28} /></div>
-            <h3>Service Provider Review</h3>
-            <p>Review records, ratings and feedback for a service provider before you hire.</p>
+            <div className="cs-card-body">
+              <h3>Service Provider Review</h3>
+              <p>Review records, ratings and feedback for a service provider before you hire.</p>
+            </div>
             <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }} className="cs-link">Review provider <ArrowRight size={15} /></a>
           </div>
 
           <div className="cs-card">
             <div className="cs-icon-box"><Scale size={28} /></div>
-            <h3>Legal Team Support</h3>
-            <p>Connect with experienced legal professionals for guidance.</p>
+            <div className="cs-card-body">
+              <h3>Legal Team Support</h3>
+              <p>Connect with experienced legal professionals for guidance.</p>
+            </div>
             <a href="/legal-team" onClick={(e) => { e.preventDefault(); navigateTo('legal', '/legal-team'); }} className="cs-link">Get legal support <ArrowRight size={15} /></a>
+          </div>
+
+          <div className="cs-card">
+            <div className="cs-icon-box"><ShieldCheck size={28} /></div>
+            <div className="cs-card-body">
+              <h3>Tenant &amp; Property Checks</h3>
+              <p>Verify tenant background, rental agreements and asset records securely.</p>
+            </div>
+            <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Check tenant <ArrowRight size={15} /></a>
           </div>
         </div>
       </section>
@@ -1241,7 +1238,9 @@ function FooterNav({ navigateTo }) {
           </a>
           <div className="footer-social-row">
             <a href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="fs-btn">
-              <MessageCircle size={16} />
+              <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.66 4.77 1.8 6.77L2 30l7.44-1.78A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.2a11.17 11.17 0 0 1-5.7-1.56l-.41-.24-4.42 1.06 1.1-4.3-.27-.44A11.17 11.17 0 0 1 4.8 16C4.8 9.82 9.82 4.8 16 4.8S27.2 9.82 27.2 16 22.18 27.2 16 27.2zm6.13-8.3c-.33-.17-1.97-.97-2.28-1.08-.3-.11-.52-.17-.74.17-.22.33-.86 1.08-1.05 1.3-.19.22-.39.25-.72.08-.33-.17-1.4-.52-2.67-1.65-.99-.88-1.65-1.97-1.85-2.3-.19-.33-.02-.51.14-.67.15-.15.33-.39.5-.58.17-.19.22-.33.33-.55.11-.22.06-.41-.03-.58-.08-.17-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.58.08-.88.41-.3.33-1.16 1.13-1.16 2.76s1.19 3.2 1.35 3.42c.17.22 2.34 3.57 5.67 5.01.79.34 1.41.55 1.89.7.79.25 1.51.21 2.08.13.63-.09 1.97-.81 2.25-1.58.28-.77.28-1.43.19-1.57-.08-.14-.3-.22-.63-.39z"/>
+              </svg>
             </a>
             <a href="mailto:info@employeeverifier.com" aria-label="Email" className="fs-btn">
               <Mail size={16} />
