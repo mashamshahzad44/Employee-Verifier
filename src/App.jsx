@@ -250,11 +250,11 @@ function App() {
       <section className="hero shell" id="top">
         <div className="hero-copy">
           <div className="eyebrow">
-            <span className="pulse"></span> EMPLOYEEVERIFIER — TRUSTED BACKGROUND CHECKS
+            <span className="pulse"></span> Trusted Verification &amp; Records
           </div>
-          <h1 className="hero-h1-bold">VERIFY WITH<br />CONFIDENCE</h1>
+          <h1>Know who<br />you're trusting</h1>
           <p className="hero-intro">
-            A premium verification solution for businesses who want to hire, rent, and partner with total peace of mind.
+            Instant background, identity, and employment checks for employees, tenants, and business partners.
           </p>
           
           {/* 4 Feature Badges / Pills */}
@@ -274,8 +274,8 @@ function App() {
           </div>
 
           <div className="hero-actions">
-            <a className="button button-teal hero-verify-btn" href="#search">
-              Start a check 🔑
+            <a className="button button-teal" href="#search">
+              Verify a person <ArrowUpRight size={17} />
             </a>
             {/* Social Proof Line */}
             <div className="hero-social-proof">
