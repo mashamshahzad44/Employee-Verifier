@@ -250,11 +250,11 @@ function App() {
       <section className="hero shell" id="top">
         <div className="hero-copy">
           <div className="eyebrow">
-            <span className="pulse"></span> Trusted Verification &amp; Records
+            <span className="pulse"></span> EMPLOYEEVERIFIER — TRUSTED BACKGROUND CHECKS
           </div>
-          <h1>Know who<br />you're trusting</h1>
+          <h1 className="hero-h1-bold">VERIFY WITH<br />CONFIDENCE</h1>
           <p className="hero-intro">
-            Instant background, identity, and employment checks for employees, tenants, and business partners.
+            A premium verification solution for businesses who want to hire, rent, and partner with total peace of mind.
           </p>
           
           {/* 4 Feature Badges / Pills */}
@@ -274,8 +274,8 @@ function App() {
           </div>
 
           <div className="hero-actions">
-            <a className="button button-teal" href="#search">
-              Verify a person <ArrowUpRight size={17} />
+            <a className="button button-teal hero-verify-btn" href="#search">
+              Start a check 🔑
             </a>
             {/* Social Proof Line */}
             <div className="hero-social-proof">
@@ -406,43 +406,55 @@ function App() {
         <div className="creative-services-grid">
           <div className="cs-card">
             <div className="cs-icon-box"><IdCard size={28} /></div>
-            <h3>Employee/CNIC Verification</h3>
-            <p>Search verified employee records securely using a 13-digit CNIC.</p>
+            <div className="cs-card-body">
+              <h3>Employee/CNIC Verification</h3>
+              <p>Search verified employee records securely using a 13-digit CNIC.</p>
+            </div>
             <a href="#search" className="cs-link">Start search <ArrowRight size={15} /></a>
           </div>
 
           <div className="cs-card">
             <div className="cs-icon-box"><UserCheck size={28} /></div>
-            <h3>Employee Details</h3>
-            <p>View available identity and employment information in one place.</p>
+            <div className="cs-card-body">
+              <h3>Employee Details</h3>
+              <p>View available identity and employment information in one place.</p>
+            </div>
             <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">View details <ArrowRight size={15} /></a>
           </div>
 
           <div className="cs-card">
             <div className="cs-icon-box"><Building2 size={28} /></div>
-            <h3>Company Reviews</h3>
-            <p>Access authentic company feedback attached to verified records.</p>
+            <div className="cs-card-body">
+              <h3>Company Reviews</h3>
+              <p>Access authentic company feedback attached to verified records.</p>
+            </div>
             <a href="/complaint" onClick={(e) => { e.preventDefault(); navigateTo('complaint', '/complaint'); }} className="cs-link">Check reviews <ArrowRight size={15} /></a>
           </div>
 
           <div className="cs-card">
             <div className="cs-icon-box"><Lock size={28} /></div>
-            <h3>Private Inquiries</h3>
-            <p>Submit a confidential background-information request securely.</p>
+            <div className="cs-card-body">
+              <h3>Private Inquiries</h3>
+              <p>Submit a confidential background-information request securely.</p>
+            </div>
             <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Request inquiry <ArrowRight size={15} /></a>
           </div>
 
           <div className="cs-card">
             <div className="cs-icon-box"><Heart size={28} /></div>
-            <h3>Marital Services</h3>
-            <p>Request verification of marital status and related background records.</p>
+            <div className="cs-card-body">
+              <h3>Marital Services</h3>
+              <p>Request verification of marital status and related background records.</p>
+            </div>
             <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Request audit <ArrowRight size={15} /></a>
           </div>
 
           <div className="cs-card">
             <div className="cs-icon-box"><Users size={28} /></div>
-            <h3>Family &amp; Personal Checks</h3>
-            <p>Check the background of domestic staff, tenants and personal contacts.</p>
+            <div className="cs-card-body">
+              <h3>Family &amp; Personal Checks</h3>
+              <p>Check the background of domestic staff, tenants and personal contacts.</p>
+            </div>
             <a href="/inquiry" onClick={(e) => { e.preventDefault(); navigateTo('inquiry', '/inquiry'); }} className="cs-link">Check background <ArrowRight size={15} /></a>
           </div>
 
@@ -603,7 +615,9 @@ function App() {
         rel="noreferrer"
         aria-label="Contact Employee Verifier on WhatsApp"
       >
-        <MessageCircle size={26} />
+        <svg viewBox="0 0 32 32" width="26" height="26" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.66 4.77 1.8 6.77L2 30l7.44-1.78A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.2a11.17 11.17 0 0 1-5.7-1.56l-.41-.24-4.42 1.06 1.1-4.3-.27-.44A11.17 11.17 0 0 1 4.8 16C4.8 9.82 9.82 4.8 16 4.8S27.2 9.82 27.2 16 22.18 27.2 16 27.2zm6.13-8.3c-.33-.17-1.97-.97-2.28-1.08-.3-.11-.52-.17-.74.17-.22.33-.86 1.08-1.05 1.3-.19.22-.39.25-.72.08-.33-.17-1.4-.52-2.67-1.65-.99-.88-1.65-1.97-1.85-2.3-.19-.33-.02-.51.14-.67.15-.15.33-.39.5-.58.17-.19.22-.33.33-.55.11-.22.06-.41-.03-.58-.08-.17-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.58.08-.88.41-.3.33-1.16 1.13-1.16 2.76s1.19 3.2 1.35 3.42c.17.22 2.34 3.57 5.67 5.01.79.34 1.41.55 1.89.7.79.25 1.51.21 2.08.13.63-.09 1.97-.81 2.25-1.58.28-.77.28-1.43.19-1.57-.08-.14-.3-.22-.63-.39z"/>
+        </svg>
       </a>
     </main>
   )
@@ -753,9 +767,6 @@ function LegalTeamPage({ onBack, navigateTo }) {
             <h2>Imran Rafiq Waseer</h2>
             <span className="hlc-subtitle">Advocate High Court</span>
             <p>Criminal cases, FIA, NAB, Anti-Corruption, Cyber Crime, Customs, Anti-Terrorism and related High Court matters.</p>
-            <button className="hlc-consult-btn" onClick={() => setConsultOpen(true)}>
-              <MessageCircle size={16} /> Consult the legal team
-            </button>
           </div>
         </div>
 
@@ -819,7 +830,9 @@ function LegalTeamPage({ onBack, navigateTo }) {
 
       {/* Floating WhatsApp */}
       <a className="whatsapp-button" href="https://wa.me/447777793786" target="_blank" rel="noreferrer" aria-label="WhatsApp">
-        <MessageCircle size={26} />
+        <svg viewBox="0 0 32 32" width="26" height="26" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.66 4.77 1.8 6.77L2 30l7.44-1.78A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.2a11.17 11.17 0 0 1-5.7-1.56l-.41-.24-4.42 1.06 1.1-4.3-.27-.44A11.17 11.17 0 0 1 4.8 16C4.8 9.82 9.82 4.8 16 4.8S27.2 9.82 27.2 16 22.18 27.2 16 27.2zm6.13-8.3c-.33-.17-1.97-.97-2.28-1.08-.3-.11-.52-.17-.74.17-.22.33-.86 1.08-1.05 1.3-.19.22-.39.25-.72.08-.33-.17-1.4-.52-2.67-1.65-.99-.88-1.65-1.97-1.85-2.3-.19-.33-.02-.51.14-.67.15-.15.33-.39.5-.58.17-.19.22-.33.33-.55.11-.22.06-.41-.03-.58-.08-.17-.74-1.78-1.01-2.44-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.58.08-.88.41-.3.33-1.16 1.13-1.16 2.76s1.19 3.2 1.35 3.42c.17.22 2.34 3.57 5.67 5.01.79.34 1.41.55 1.89.7.79.25 1.51.21 2.08.13.63-.09 1.97-.81 2.25-1.58.28-.77.28-1.43.19-1.57-.08-.14-.3-.22-.63-.39z"/>
+        </svg>
       </a>
     </main>
   )
@@ -1368,7 +1381,7 @@ function AuthPage({ initialMode }) {
                 By creating an account, you agree to our Terms of Use. We will use your WhatsApp number for verification.
               </p>
             )}
-            <button className="auth-submit button-teal" type="submit">
+            <button className="auth-submit button button-teal" type="submit">
               {authMode === 'signin' ? 'Sign in' : 'Create account'} <ArrowUpRight size={17} />
             </button>
             {authMessage && (
